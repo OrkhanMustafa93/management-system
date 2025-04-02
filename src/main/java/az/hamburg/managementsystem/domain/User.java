@@ -14,7 +14,7 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class User extends BaseDomain {
+public class Organization extends BaseDomain {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +22,7 @@ public class User extends BaseDomain {
 
     private String name;
     private Boolean status;
-    private String username;
+    private String Organizationname;
     private String email;
     private String password;
     private String phoneNumber;
