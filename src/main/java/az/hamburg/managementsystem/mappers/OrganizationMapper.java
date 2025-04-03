@@ -1,5 +1,6 @@
 package az.hamburg.managementsystem.mappers;
 
+import az.hamburg.managementsystem.domain.Organization;
 import az.hamburg.managementsystem.model.request.OrganizationCreateRequest;
 import az.hamburg.managementsystem.model.request.OrganizationUpdateRequest;
 import az.hamburg.managementsystem.model.response.OrganizationCreateResponse;

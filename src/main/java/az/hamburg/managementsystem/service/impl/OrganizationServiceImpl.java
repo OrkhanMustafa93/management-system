@@ -1,5 +1,6 @@
 package az.hamburg.managementsystem.service.impl;
 
+import az.hamburg.managementsystem.domain.Organization;
 import az.hamburg.managementsystem.exception.error.ErrorMessage;
 import az.hamburg.managementsystem.exception.handler.OrganizationNotFoundException;
 import az.hamburg.managementsystem.mappers.OrganizationMapper;
@@ -36,7 +37,7 @@ public class OrganizationServiceImpl implements OrganizationService {
     @Override
     public OrganizationReadResponse getId(Long id) {
         Organization foundedOrganization = organizationRepository.findById(id)
-                .orElseThrow(() -> new OrganizationNotFoundException(ErrorMessage.Organization_NOT_FOUND, HttpStatus.NOT_FOUND.name()));
+                .orElseThrow(() -> new OrganizationNotFoundException(ErrorMessage.ORGANIZATION_NOT_FOUND, HttpStatus.NOT_FOUND.name()));
 
         return organizationMapper.entityToReadResponse(foundedOrganization);
     }
@@ -52,7 +53,7 @@ public class OrganizationServiceImpl implements OrganizationService {
     public OrganizationUpdateResponse update(Long id, OrganizationUpdateRequest updateRequest) {
                 Organization foundedOrganization = organizationRepository
                 .findById(id)
-                        .orElseThrow(() -> new OrganizationNotFoundException(ErrorMessage.Organization_NOT_FOUND, HttpStatus.NOT_FOUND.name()));
+                        .orElseThrow(() -> new OrganizationNotFoundException(ErrorMessage.ORGANIZATION_NOT_FOUND, HttpStatus.NOT_FOUND.name()));
         Organization savedOrganization = organizationMapper.updateRequestToEntity(updateRequest);
         savedOrganization.setId(foundedOrganization.getId());
         organizationRepository.save(savedOrganization);
@@ -63,7 +64,7 @@ public class OrganizationServiceImpl implements OrganizationService {
     @Override
     public void delete(Long id) {
                 Organization organization = organizationRepository.findById(id)
-                .orElseThrow(() -> new OrganizationNotFoundException(ErrorMessage.Organization_NOT_FOUND, HttpStatus.NOT_FOUND.name()));
+                .orElseThrow(() -> new OrganizationNotFoundException(ErrorMessage.ORGANIZATION_NOT_FOUND, HttpStatus.NOT_FOUND.name()));
         organizationRepository.deleteById(organization.getId());
     }
 }
