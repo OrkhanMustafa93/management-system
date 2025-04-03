@@ -1,4 +1,4 @@
-package az.hamburg.managementsystem.model.response;
+package az.hamburg.managementsystem.model.organization.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,8 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrganizationReadResponse {
-    private Long id;
+public class OrganizationCreateRequest {
     private String name;
-    private String status;
+    private Boolean status;
 }
