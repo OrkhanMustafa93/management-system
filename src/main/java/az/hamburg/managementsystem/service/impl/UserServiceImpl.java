@@ -1,5 +1,4 @@
 package az.hamburg.managementsystem.service.impl;
-
 import az.hamburg.managementsystem.domain.User;
 import az.hamburg.managementsystem.exception.error.ErrorMessage;
 import az.hamburg.managementsystem.exception.handler.UserNotFoundException;
@@ -45,7 +44,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserReadResponse> getAll() {
         List<User> userList = userRepository.findAll();
-        return userMapper.listEntityToListReadResponse(userList);
+
+        return userList.stream()
+                .map(userMapper::entityToReadResponse)
+                .toList();
     }
 
     @Override
