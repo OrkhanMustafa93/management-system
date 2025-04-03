@@ -1,4 +1,4 @@
-package az.hamburg.managementsystem.model.request;
+package az.hamburg.managementsystem.model.organization.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class OrganizationUpdateRequest {
     private String name;
-    private String status;
+    private Boolean status;
 }

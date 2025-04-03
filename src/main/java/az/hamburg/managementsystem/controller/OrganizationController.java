@@ -1,10 +1,10 @@
 package az.hamburg.managementsystem.controller;
 
-import az.hamburg.managementsystem.model.request.OrganizationCreateRequest;
-import az.hamburg.managementsystem.model.request.OrganizationUpdateRequest;
-import az.hamburg.managementsystem.model.response.OrganizationCreateResponse;
-import az.hamburg.managementsystem.model.response.OrganizationReadResponse;
-import az.hamburg.managementsystem.model.response.OrganizationUpdateResponse;
+import az.hamburg.managementsystem.model.organization.request.OrganizationCreateRequest;
+import az.hamburg.managementsystem.model.organization.request.OrganizationUpdateRequest;
+import az.hamburg.managementsystem.model.organization.response.OrganizationCreateResponse;
+import az.hamburg.managementsystem.model.organization.response.OrganizationReadResponse;
+import az.hamburg.managementsystem.model.organization.response.OrganizationUpdateResponse;
 import az.hamburg.managementsystem.service.OrganizationService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
