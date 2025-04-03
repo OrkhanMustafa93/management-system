@@ -1,6 +1,5 @@
 package az.hamburg.managementsystem.service.impl;
 
-import az.hamburg.managementsystem.domain.Organization;
 import az.hamburg.managementsystem.exception.error.ErrorMessage;
 import az.hamburg.managementsystem.exception.handler.OrganizationNotFoundException;
 import az.hamburg.managementsystem.mappers.OrganizationMapper;
@@ -17,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -44,13 +44,15 @@ public class OrganizationServiceImpl implements OrganizationService {
     @Override
     public List<OrganizationReadResponse> getAll() {
         List<Organization> organizationList = organizationRepository.findAll();
-        return organizationMapper.listEntityToListReadResponse(organizationList);
+        return organizationList.stream().map(organizationMapper::entityToReadResponse).collect(Collectors.toList());
+//        return organizationMapper.listEntityToListReadResponse(organizationList);
     }
 
     @Override
     public OrganizationUpdateResponse update(Long id, OrganizationUpdateRequest updateRequest) {
                 Organization foundedOrganization = organizationRepository
-                .findById(id).orElseThrow(() -> new OrganizationNotFoundException(ErrorMessage.Organization_NOT_FOUND, HttpStatus.NOT_FOUND.name()));
+                .findById(id)
+                        .orElseThrow(() -> new OrganizationNotFoundException(ErrorMessage.Organization_NOT_FOUND, HttpStatus.NOT_FOUND.name()));
         Organization savedOrganization = organizationMapper.updateRequestToEntity(updateRequest);
         savedOrganization.setId(foundedOrganization.getId());
         organizationRepository.save(savedOrganization);
