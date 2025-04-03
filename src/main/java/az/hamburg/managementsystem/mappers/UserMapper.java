@@ -20,8 +20,6 @@ public interface UserMapper {
 
     UserCreateResponse entityToCreateResponse(User user);
 
-    List<UserReadResponse> listEntityToListReadResponse(List<User> users);
-
     UserReadResponse entityToReadResponse(User user);
 
     User updateRequestToEntity(UserUpdateRequest updateRequest);

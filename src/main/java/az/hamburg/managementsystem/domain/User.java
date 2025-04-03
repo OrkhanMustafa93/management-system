@@ -9,15 +9,20 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Entity
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-public class Organization extends BaseDomain{
+public class User extends  BaseDomain {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
-    private String status;
+    private Boolean status;
+    private String username;
+    private String email;
+    private String password;
+    private String phoneNumber;
 }
