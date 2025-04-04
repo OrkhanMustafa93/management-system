@@ -14,17 +14,14 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class User extends  BaseDomain {
+public class Contact extends BaseDomain {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
-    private Boolean status;
-    private String username;
     private String email;
-    private String password;
     private String phoneNumber;
+    private Integer callCenter;
 
 }
