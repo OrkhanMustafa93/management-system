@@ -1,6 +1,8 @@
 package az.hamburg.managementsystem.domain;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -14,17 +16,16 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class User extends  BaseDomain {
+public class OrganizationJoinRequest extends BaseDomain {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
-    private Boolean status;
-    private String username;
-    private String email;
-    private String password;
-    private String phoneNumber;
+    private Long userId;
+    private Long organizationId;
+
+    @Enumerated(EnumType.STRING)
+    private RequestStatus status;
 
 }
