@@ -50,4 +50,5 @@ public class UserController {
     public UserUpdateResponse update(@PathVariable Long id, @RequestBody UserUpdateRequest updateRequest) {
         return userService.update(id, updateRequest);
     }
+
 }
