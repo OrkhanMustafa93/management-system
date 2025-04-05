@@ -19,4 +19,5 @@ public class UserUpdateResponse {
     private String phoneNumber;
     private LocalDateTime modified;
     private String modifiedBy;
+
 }
