@@ -1,9 +1,9 @@
 package az.hamburg.managementsystem.controller;
-import az.hamburg.managementsystem.model.request.UserCreateRequest;
-import az.hamburg.managementsystem.model.request.UserUpdateRequest;
-import az.hamburg.managementsystem.model.response.UserCreateResponse;
-import az.hamburg.managementsystem.model.response.UserReadResponse;
-import az.hamburg.managementsystem.model.response.UserUpdateResponse;
+import az.hamburg.managementsystem.model.user.request.UserCreateRequest;
+import az.hamburg.managementsystem.model.user.request.UserUpdateRequest;
+import az.hamburg.managementsystem.model.user.response.UserCreateResponse;
+import az.hamburg.managementsystem.model.user.response.UserReadResponse;
+import az.hamburg.managementsystem.model.user.response.UserUpdateResponse;
 import az.hamburg.managementsystem.service.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
