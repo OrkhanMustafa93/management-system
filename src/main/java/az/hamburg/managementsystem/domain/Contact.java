@@ -24,4 +24,5 @@ public class Contact extends BaseDomain {
     private String phoneNumber;
     private Integer callCenter;
 
+    //crud ve api yazz(user nezere alinmicaq)
 }
