@@ -56,8 +56,7 @@ public class ContactServiceImpl implements ContactService {
     public ContactUpdateResponse update(Long id, ContactUpdateRequest updateRequest) {
         Contact foundedContact = contactRepository
                 .findById(id).orElseThrow(() -> new ContactNotFoundException(ErrorMessage.CONTACT_NOT_FOUND, HttpStatus.NOT_FOUND.name()));
-        Contact savedContact = contactMapper.updateRequestToEntity(updateRequest);
-        savedContact.setId(foundedContact.getId());
+        Contact savedContact = contactMapper.updateRequestToEntity(foundedContact,updateRequest);
         contactRepository.save(savedContact);
 
         return contactMapper.entityToUpdateResponse(savedContact);

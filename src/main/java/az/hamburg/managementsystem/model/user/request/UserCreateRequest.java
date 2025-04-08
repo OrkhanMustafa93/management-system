@@ -1,6 +1,5 @@
 package az.hamburg.managementsystem.model.user.request;
 
-import az.hamburg.managementsystem.domain.RoleType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
