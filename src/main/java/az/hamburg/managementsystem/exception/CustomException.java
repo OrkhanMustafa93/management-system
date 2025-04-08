@@ -1,5 +1,6 @@
 package az.hamburg.managementsystem.exception;
 
+import az.hamburg.managementsystem.exception.handler.ContactNotFoundException;
 import az.hamburg.managementsystem.exception.handler.OrganizationNotFoundException;
 import az.hamburg.managementsystem.exception.handler.UserUnAuthorizedException;
 import az.hamburg.managementsystem.exception.handler.UserNotFoundException;
@@ -32,6 +33,12 @@ public class CustomException {
     @ResponseStatus(UNAUTHORIZED)
     public ProblemDetail handlerUserUnAuthorized(UserUnAuthorizedException e) {
         return ProblemDetail.forStatusAndDetail(UNAUTHORIZED, e.getMessage());
+    }
+
+    @ExceptionHandler(ContactNotFoundException.class)
+    @ResponseStatus(NOT_FOUND)
+    public ProblemDetail handlerContactNotFound(ContactNotFoundException e) {
+        return ProblemDetail.forStatusAndDetail(NOT_FOUND, e.getMessage());
     }
 
 }
