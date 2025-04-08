@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -13,5 +15,7 @@ public class ContactUpdateResponse {
     private String email;
     private String phoneNumber;
     private Integer callCenter;
+    private LocalDateTime modified;
+    private String modifiedBy;
 
 }
