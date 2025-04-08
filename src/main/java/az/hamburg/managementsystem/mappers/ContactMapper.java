@@ -1,6 +1,7 @@
 package az.hamburg.managementsystem.mappers;
 
 import az.hamburg.managementsystem.domain.Contact;
+import az.hamburg.managementsystem.domain.ContactLink;
 import az.hamburg.managementsystem.model.contact.request.ContactCreateRequest;
 import az.hamburg.managementsystem.model.contact.request.ContactUpdateRequest;
 import az.hamburg.managementsystem.model.contact.response.ContactCreateResponse;
@@ -8,6 +9,7 @@ import az.hamburg.managementsystem.model.contact.response.ContactReadResponse;
 import az.hamburg.managementsystem.model.contact.response.ContactUpdateResponse;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.ReportingPolicy;
 
 @Mapper(componentModel = "spring",unmappedTargetPolicy = ReportingPolicy.IGNORE,
@@ -20,7 +22,7 @@ public interface ContactMapper {
 
     ContactReadResponse entityToReadResponse(Contact contact);
 
-    Contact updateRequestToEntity(ContactUpdateRequest updateRequest);
+    Contact updateRequestToEntity(@MappingTarget Contact contact , ContactUpdateRequest updateRequest);
 
     ContactUpdateResponse entityToUpdateResponse(Contact contact);
 }

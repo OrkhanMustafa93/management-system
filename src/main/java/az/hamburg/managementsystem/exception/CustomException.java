@@ -1,9 +1,6 @@
 package az.hamburg.managementsystem.exception;
 
-import az.hamburg.managementsystem.exception.handler.ContactNotFoundException;
-import az.hamburg.managementsystem.exception.handler.OrganizationNotFoundException;
-import az.hamburg.managementsystem.exception.handler.UserUnAuthorizedException;
-import az.hamburg.managementsystem.exception.handler.UserNotFoundException;
+import az.hamburg.managementsystem.exception.handler.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -38,6 +35,12 @@ public class CustomException {
     @ExceptionHandler(ContactNotFoundException.class)
     @ResponseStatus(NOT_FOUND)
     public ProblemDetail handlerContactNotFound(ContactNotFoundException e) {
+        return ProblemDetail.forStatusAndDetail(NOT_FOUND, e.getMessage());
+    }
+
+    @ExceptionHandler(ContactLinkNotFoundException.class)
+    @ResponseStatus(NOT_FOUND)
+    public ProblemDetail handlerContactLinkNotFound(ContactLinkNotFoundException e) {
         return ProblemDetail.forStatusAndDetail(NOT_FOUND, e.getMessage());
     }
 
