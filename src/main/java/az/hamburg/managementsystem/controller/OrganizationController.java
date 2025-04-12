@@ -8,6 +8,7 @@ import az.hamburg.managementsystem.model.organization.response.OrganizationReadR
 import az.hamburg.managementsystem.model.organization.response.OrganizationUpdateResponse;
 import az.hamburg.managementsystem.service.OrganizationService;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +26,7 @@ public class OrganizationController {
 
     @PostMapping("/userId/{id}")
     @ResponseStatus(HttpStatus.CREATED)
-    public OrganizationCreateResponse create(@RequestBody OrganizationCreateRequest createRequest, @PathVariable Long id) {
+    public OrganizationCreateResponse create(@Valid  @RequestBody OrganizationCreateRequest createRequest, @PathVariable Long id) {
         return organizationService.create(createRequest, id);
     }
 
