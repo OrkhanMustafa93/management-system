@@ -19,6 +19,6 @@ public class ContactCreateRequest {
     private String phoneNumber;
 
     @ContactCallCenter
-    private Integer callCenter;
+    private String callCenter;
 
 }

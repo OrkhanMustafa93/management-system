@@ -22,7 +22,7 @@ public class Contact extends BaseDomain {
 
     private String email;
     private String phoneNumber;
-    private Integer callCenter;
+    private String callCenter;
 
     //crud ve api yazz(user nezere alinmicaq)
 }

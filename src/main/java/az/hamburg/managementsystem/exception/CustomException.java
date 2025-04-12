@@ -1,9 +1,9 @@
 package az.hamburg.managementsystem.exception;
 
+import az.hamburg.managementsystem.exception.error.ErrorResponse;
 import az.hamburg.managementsystem.exception.handler.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ProblemDetail;
-import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -47,12 +47,15 @@ public class CustomException {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(BAD_REQUEST)
-    public ProblemDetail handlerMethodArgumentNotValid(MethodArgumentNotValidException exception) {
+    public ErrorResponse handlerMethodArgumentNotValid(MethodArgumentNotValidException exception) {
         String fieldName = exception.getBindingResult().getFieldError().getField();
         String message = exception.getBindingResult().getFieldError().getDefaultMessage();
 
+        return ErrorResponse.builder()
+                .message(fieldName + message)
+                .code(BAD_REQUEST.name())
+                .build();
 
-        return ProblemDetail.forStatusAndDetail(BAD_REQUEST, message);
     }
 
 }
