@@ -6,6 +6,7 @@ import az.hamburg.managementsystem.model.contactlink.response.ContactLinkCreateR
 import az.hamburg.managementsystem.model.contactlink.response.ContactLinkReadResponse;
 import az.hamburg.managementsystem.model.contactlink.response.ContactLinkUpdateResponse;
 import az.hamburg.managementsystem.service.ContactLinkService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +34,7 @@ public class ContactLinkController {
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public ContactLinkCreateResponse create(@RequestBody ContactLinkCreateRequest contactLink) {
+    public ContactLinkCreateResponse create(@Valid @RequestBody ContactLinkCreateRequest contactLink) {
         return contactLinkService.create(contactLink);
     }
 
