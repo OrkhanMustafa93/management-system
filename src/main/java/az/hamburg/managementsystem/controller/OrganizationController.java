@@ -42,10 +42,10 @@ public class OrganizationController {
         return organizationService.getAll();
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{organizationId}/userId/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteById(@PathVariable Long id) {
-        organizationService.delete(id);
+    public void deleteById(@PathVariable(name = "organizationId") Long organizationId, @PathVariable(name = "id") Long id) {
+        organizationService.delete(organizationId, id);
     }
 
     @PutMapping("/{id}")

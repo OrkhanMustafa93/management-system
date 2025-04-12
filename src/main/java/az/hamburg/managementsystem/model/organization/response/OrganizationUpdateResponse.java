@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public class OrganizationUpdateResponse {
     private Long id;
     private String name;
-    private String status;
+    private Boolean status;
     private LocalDateTime modified;
     private String modifiedBy;
 }
