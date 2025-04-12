@@ -36,22 +36,15 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     @Override
     public OrganizationCreateResponse create(OrganizationCreateRequest createRequest, Long userId) {
+
         UserReadResponse userReadResponse = userService.getId(userId);
         if (userReadResponse.getRoleType().equals(RoleType.ADMIN)){
             Organization organization = organizationMapper.createRequestToEntity(createRequest);
-//            Organization saved = organizationRepository.save(organization);
-            return  organizationMapper.entityToCreateResponse(organization);
+            Organization saved = organizationRepository.save(organization);
+            return organizationMapper.entityToCreateResponse(saved);
         }
         throw new UserUnAuthorizedException(ErrorMessage.USERUNAUTHORIZED, HttpStatus.UNAUTHORIZED.name());
-//        if (userId != null) {
-//            Organization organization = organizationMapper.createRequestToEntity(createRequest);
-//            Organization saved = organizationRepository.save(organization);
-//            return  organizationMapper.entityToCreateResponse(organization);
-//        }
-//        throw new UserNotFoundException(ErrorMessage.USER_NOT_FOUND, HttpStatus.NOT_FOUND.name());
-//        todo: createdby kim terefinden yaradildigi (set olunmalidi)
-//        todo: istifadeci organization daxil etmelidi, var olub olmadigi da yoxlanilmalidi (id si ile)
-//        todo: creatdeki mentiqi update ve delete de tetbiq etmek
+
     }
 
 
@@ -72,50 +65,32 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     @Override
     public OrganizationUpdateResponse update(Long id, OrganizationUpdateRequest updateRequest) {
-        return null;
-    }
 
-    @Override
-    public void delete(Long id) {
-
-    }
-
-    @Override
-    public OrganizationUpdateResponse update(Long id, OrganizationUpdateRequest updateRequest, User user) {
-        if (user != null){
+        UserReadResponse userReadResponse = userService.getId(id);
+        if (userReadResponse.getRoleType().equals(RoleType.ADMIN)){
+            Organization organization = organizationMapper.updateRequestToEntity(updateRequest);
             Organization foundedOrganization = organizationRepository
                     .findById(id)
                     .orElseThrow(() -> new OrganizationNotFoundException(ErrorMessage.ORGANIZATION_NOT_FOUND, HttpStatus.NOT_FOUND.name()));
             Organization savedOrganization = organizationMapper.updateRequestToEntity(updateRequest);
             savedOrganization.setId(foundedOrganization.getId());
             organizationRepository.save(savedOrganization);
-
-            return organizationMapper.entityToUpdateResponse(savedOrganization);
+            return organizationMapper.entityToUpdateResponse(organization);
         }
-        throw new UserNotFoundException(ErrorMessage.USER_NOT_FOUND, HttpStatus.NOT_FOUND.name());
+        throw new UserUnAuthorizedException(ErrorMessage.USERUNAUTHORIZED, HttpStatus.UNAUTHORIZED.name());
 
-//                Organization foundedOrganization = organizationRepository
-//                .findById(id)
-//                        .orElseThrow(() -> new OrganizationNotFoundException(ErrorMessage.ORGANIZATION_NOT_FOUND, HttpStatus.NOT_FOUND.name()));
-//        Organization savedOrganization = organizationMapper.updateRequestToEntity(updateRequest);
-//        savedOrganization.setId(foundedOrganization.getId());
-//        organizationRepository.save(savedOrganization);
-
-//        return organizationMapper.entityToUpdateResponse(savedOrganization);
     }
 
     @Override
-    public void delete(Long id, User user) {
-        if (user != null){
-            Organization organization = organizationRepository.findById(id)
-                    .orElseThrow(() -> new OrganizationNotFoundException(ErrorMessage.ORGANIZATION_NOT_FOUND, HttpStatus.NOT_FOUND.name()));
-            organizationRepository.deleteById(organization.getId());
+    public void delete(Long id, Long userId) {
+
+        UserReadResponse userReadResponse = userService.getId(userId);
+        if (!userReadResponse.getRoleType().equals(RoleType.ADMIN)){
+            throw new UserUnAuthorizedException(ErrorMessage.USERUNAUTHORIZED, HttpStatus.UNAUTHORIZED.name());
         }
-        throw new UserNotFoundException(ErrorMessage.USER_NOT_FOUND, HttpStatus.NOT_FOUND.name());
-
-
-//                Organization organization = organizationRepository.findById(id)
-//                .orElseThrow(() -> new OrganizationNotFoundException(ErrorMessage.ORGANIZATION_NOT_FOUND, HttpStatus.NOT_FOUND.name()));
-//        organizationRepository.deleteById(organization.getId());
+        Organization organization = organizationRepository.findById(id)
+                .orElseThrow(() -> new OrganizationNotFoundException(ErrorMessage.ORGANIZATION_NOT_FOUND, HttpStatus.NOT_FOUND.name()));
+        organizationRepository.deleteById(organization.getId());
     }
+
 }

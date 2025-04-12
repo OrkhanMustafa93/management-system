@@ -14,7 +14,7 @@ public class ContactReadResponse {
     private Long id;
     private String email;
     private String phoneNumber;
-    private Integer callCenter;
+    private String callCenter;
     private LocalDateTime created;
     private String createdBy;
     private LocalDateTime modified;

@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 
 @Data
 @NoArgsConstructor
@@ -12,4 +14,9 @@ public class OrganizationReadResponse {
     private Long id;
     private String name;
     private Boolean status;
+    private LocalDateTime created;
+    private String createdBy;
+    private LocalDateTime modified;
+    private String modifiedBy;
+
 }

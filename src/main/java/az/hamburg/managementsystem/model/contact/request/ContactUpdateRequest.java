@@ -11,6 +11,6 @@ public class ContactUpdateRequest {
 
     private String email;
     private String phoneNumber;
-    private Integer callCenter;
+    private String callCenter;
 
 }
