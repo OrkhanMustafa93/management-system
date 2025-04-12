@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public class OrganizationCreateResponse {
     private Long id;
     private String name;
-    private String status;
+    private Boolean status;
     private LocalDateTime created;
     private String createdBy;
 }
