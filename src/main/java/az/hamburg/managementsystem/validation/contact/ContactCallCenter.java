@@ -9,8 +9,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = {})
 @Documented
-@Size(min = 0, max = 3, message = "Call center kodu  3 simvol olmalıdır")
-
+@Size( max = 3, message = "Call center kodu  3 simvol olmalıdır")
 public @interface ContactCallCenter {
 
     String message() default "";
