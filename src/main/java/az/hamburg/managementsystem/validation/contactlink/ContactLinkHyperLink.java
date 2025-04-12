@@ -10,8 +10,6 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = {})
 @Documented
-//@URL(message = "Invalid website URL")-burada protokol teleb olunur(https://google.com)
-
 @Pattern(
         regexp = "^(https?://)?([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,}$",
         message = "Website must be a valid URL (e.g. google.com or https://google.com)"

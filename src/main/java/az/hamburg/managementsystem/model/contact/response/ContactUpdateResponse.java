@@ -14,7 +14,7 @@ public class ContactUpdateResponse {
     private Long id;
     private String email;
     private String phoneNumber;
-    private Integer callCenter;
+    private String callCenter;
     private LocalDateTime modified;
     private String modifiedBy;
 
