@@ -7,6 +7,7 @@ import az.hamburg.managementsystem.model.contact.response.ContactReadResponse;
 import az.hamburg.managementsystem.model.contact.response.ContactUpdateResponse;
 import az.hamburg.managementsystem.service.ContactService;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +25,7 @@ public class ContactController {
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    private ContactCreateResponse create(@RequestBody ContactCreateRequest createRequest) {
+    private ContactCreateResponse create(@Valid @RequestBody ContactCreateRequest createRequest) {
         return contactService.create(createRequest);
     }
 
