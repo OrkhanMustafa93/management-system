@@ -3,6 +3,7 @@ import az.hamburg.managementsystem.domain.RoleType;
 import az.hamburg.managementsystem.domain.User;
 import az.hamburg.managementsystem.exception.error.ErrorMessage;
 import az.hamburg.managementsystem.exception.handler.UserNotFoundException;
+import az.hamburg.managementsystem.exception.handler.WrongPhoneNumberException;
 import az.hamburg.managementsystem.mappers.UserMapper;
 import az.hamburg.managementsystem.model.user.request.UserCreateRequest;
 import az.hamburg.managementsystem.model.user.request.UserUpdateRequest;
@@ -29,11 +30,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserCreateResponse create(UserCreateRequest createRequest) {
-        User user = userMapper.createRequestToEntity(createRequest);
-        user.setRoleType(RoleType.USER);
-        user.setCreatedBy(createRequest.getUsername());
-        userRepository.save(user);
-        return  userMapper.entityToCreateResponse(user);
+        String phoneNumber = createRequest.getPhoneNumber();
+        String checkNumber = phoneNumber.substring(0, 4);
+        if (!checkNumber.equals("+994")) {
+            throw new WrongPhoneNumberException(ErrorMessage.NUMBER_IS_WRONG, HttpStatus.BAD_REQUEST.name());
+        }
+            User user = userMapper.createRequestToEntity(createRequest);
+            user.setRoleType(RoleType.USER);
+            user.setCreatedBy(createRequest.getUsername());
+            userRepository.save(user);
+            return userMapper.entityToCreateResponse(user);
     }
 
     @Override
