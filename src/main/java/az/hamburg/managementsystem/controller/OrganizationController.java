@@ -1,6 +1,5 @@
 package az.hamburg.managementsystem.controller;
 
-import az.hamburg.managementsystem.domain.User;
 import az.hamburg.managementsystem.model.organization.request.OrganizationCreateRequest;
 import az.hamburg.managementsystem.model.organization.request.OrganizationUpdateRequest;
 import az.hamburg.managementsystem.model.organization.response.OrganizationCreateResponse;
@@ -26,8 +25,8 @@ public class OrganizationController {
 
     @PostMapping("/userId/{id}")
     @ResponseStatus(HttpStatus.CREATED)
-    public OrganizationCreateResponse create(@Valid  @RequestBody OrganizationCreateRequest createRequest, @PathVariable Long id) {
-        return organizationService.create(createRequest, id);
+    public OrganizationCreateResponse create(@Valid  @RequestBody OrganizationCreateRequest createRequest) {
+        return organizationService.create(createRequest);
     }
 
     @GetMapping("/{id}")

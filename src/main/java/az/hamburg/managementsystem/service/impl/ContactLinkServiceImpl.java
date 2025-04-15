@@ -1,8 +1,10 @@
 package az.hamburg.managementsystem.service.impl;
 
+import az.hamburg.managementsystem.domain.Contact;
 import az.hamburg.managementsystem.domain.ContactLink;
 import az.hamburg.managementsystem.exception.error.ErrorMessage;
 import az.hamburg.managementsystem.exception.handler.ContactLinkNotFoundException;
+import az.hamburg.managementsystem.exception.handler.ContactNotFoundException;
 import az.hamburg.managementsystem.mappers.ContactLinkMapper;
 import az.hamburg.managementsystem.model.contactlink.request.ContactLinkCreateRequest;
 import az.hamburg.managementsystem.model.contactlink.request.ContactLinkUpdateRequest;
@@ -10,6 +12,7 @@ import az.hamburg.managementsystem.model.contactlink.response.ContactLinkCreateR
 import az.hamburg.managementsystem.model.contactlink.response.ContactLinkReadResponse;
 import az.hamburg.managementsystem.model.contactlink.response.ContactLinkUpdateResponse;
 import az.hamburg.managementsystem.repository.ContactLinkRepository;
+import az.hamburg.managementsystem.repository.ContactRepository;
 import az.hamburg.managementsystem.service.ContactLinkService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +28,7 @@ public class ContactLinkServiceImpl implements ContactLinkService {
 
     private final ContactLinkMapper contactLinkMapper;
     private final ContactLinkRepository contactLinkRepository;
+    private final ContactRepository contactRepository;
 
     @Override
     public ContactLinkCreateResponse create(ContactLinkCreateRequest createRequest) {

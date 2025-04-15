@@ -35,15 +35,11 @@ public class OrganizationServiceImpl implements OrganizationService {
     private final UserService userService;
 
     @Override
-    public OrganizationCreateResponse create(OrganizationCreateRequest createRequest, Long userId) {
+    public OrganizationCreateResponse create(OrganizationCreateRequest createRequest) {
 
-        UserReadResponse userReadResponse = userService.getId(userId);
-        if (userReadResponse.getRoleType().equals(RoleType.ADMIN)){
-            Organization organization = organizationMapper.createRequestToEntity(createRequest);
-            Organization saved = organizationRepository.save(organization);
-            return organizationMapper.entityToCreateResponse(saved);
-        }
-        throw new UserUnAuthorizedException(ErrorMessage.USERUNAUTHORIZED, HttpStatus.UNAUTHORIZED.name());
+        Organization organization = organizationMapper.createRequestToEntity(createRequest);
+        Organization saved = organizationRepository.save(organization);
+        return organizationMapper.entityToCreateResponse(saved);
 
     }
 
@@ -60,14 +56,13 @@ public class OrganizationServiceImpl implements OrganizationService {
     public List<OrganizationReadResponse> getAll() {
         List<Organization> organizationList = organizationRepository.findAll();
         return organizationList.stream().map(organizationMapper::entityToReadResponse).collect(Collectors.toList());
-//        return organizationMapper.listEntityToListReadResponse(organizationList);
     }
 
     @Override
     public OrganizationUpdateResponse update(Long id, OrganizationUpdateRequest updateRequest) {
 
         UserReadResponse userReadResponse = userService.getId(id);
-        if (userReadResponse.getRoleType().equals(RoleType.ADMIN)){
+        if (userReadResponse.getRoleType().equals(RoleType.ADMIN)) {
             Organization organization = organizationMapper.updateRequestToEntity(updateRequest);
             Organization foundedOrganization = organizationRepository
                     .findById(id)
@@ -85,7 +80,7 @@ public class OrganizationServiceImpl implements OrganizationService {
     public void delete(Long id, Long userId) {
 
         UserReadResponse userReadResponse = userService.getId(userId);
-        if (!userReadResponse.getRoleType().equals(RoleType.ADMIN)){
+        if (!userReadResponse.getRoleType().equals(RoleType.ADMIN)) {
             throw new UserUnAuthorizedException(ErrorMessage.USERUNAUTHORIZED, HttpStatus.UNAUTHORIZED.name());
         }
         Organization organization = organizationRepository.findById(id)
