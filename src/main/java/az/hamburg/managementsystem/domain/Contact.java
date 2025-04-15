@@ -1,13 +1,13 @@
 package az.hamburg.managementsystem.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Setter
@@ -24,5 +24,6 @@ public class Contact extends BaseDomain {
     private String phoneNumber;
     private String callCenter;
 
-    //crud ve api yazz(user nezere alinmicaq)
+
+
 }

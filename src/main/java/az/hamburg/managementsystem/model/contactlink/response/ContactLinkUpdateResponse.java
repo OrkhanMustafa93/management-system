@@ -16,4 +16,7 @@ public class ContactLinkUpdateResponse {
     private String anchorText;
     private LocalDateTime modified;
     private String modifiedBy;
+
+    private Long contactId;
+
 }

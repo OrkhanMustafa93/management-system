@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface OrganizationService {
 
-    OrganizationCreateResponse create(OrganizationCreateRequest createRequest, Long userId);
+    OrganizationCreateResponse create(OrganizationCreateRequest createRequest);
 
     OrganizationReadResponse getId(Long id);
 

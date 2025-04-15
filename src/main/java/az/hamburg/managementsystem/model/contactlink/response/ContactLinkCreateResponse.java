@@ -17,4 +17,7 @@ public class ContactLinkCreateResponse {
     private LocalDateTime created;
     private String createdBy;
 
+    private Long contactId;
+
+
 }
