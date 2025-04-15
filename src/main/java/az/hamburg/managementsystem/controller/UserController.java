@@ -6,6 +6,7 @@ import az.hamburg.managementsystem.model.user.response.UserReadResponse;
 import az.hamburg.managementsystem.model.user.response.UserUpdateResponse;
 import az.hamburg.managementsystem.service.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +24,7 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public UserCreateResponse create(@RequestBody UserCreateRequest createRequest) {
+    public UserCreateResponse create(@Valid @RequestBody UserCreateRequest createRequest) {
         return userService.create(createRequest);
     }
 
