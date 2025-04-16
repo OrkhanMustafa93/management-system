@@ -23,7 +23,6 @@ public class UserCreateRequest {
     )
     private String email;
 
-
     @Password
     private String password;
 
