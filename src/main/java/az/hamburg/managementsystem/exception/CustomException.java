@@ -75,5 +75,10 @@ public class CustomException {
         return ProblemDetail.forStatusAndDetail(NOT_FOUND, exception.getMessage());
     }
 
+    @ExceptionHandler(OrganizationJoinRequestNotFoundException.class)
+    @ResponseStatus(NOT_FOUND)
+    public ProblemDetail handlerOrganizationJoinRequestNotFound(OrganizationJoinRequestNotFoundException e) {
+        return ProblemDetail.forStatusAndDetail(NOT_FOUND, e.getMessage());
+    }
 
 }

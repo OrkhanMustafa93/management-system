@@ -1,6 +1,5 @@
 package az.hamburg.managementsystem.service;
 
-import az.hamburg.managementsystem.domain.User;
 import az.hamburg.managementsystem.model.organization.request.OrganizationCreateRequest;
 import az.hamburg.managementsystem.model.organization.request.OrganizationUpdateRequest;
 import az.hamburg.managementsystem.model.organization.response.OrganizationCreateResponse;

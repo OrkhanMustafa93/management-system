@@ -24,6 +24,9 @@ public class Contact extends BaseDomain {
     private String phoneNumber;
     private String callCenter;
 
+    private Long addressId;
+
+
 
 
 }
