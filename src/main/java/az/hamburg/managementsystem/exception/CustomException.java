@@ -69,5 +69,11 @@ public class CustomException {
         return ProblemDetail.forStatusAndDetail(BAD_REQUEST, e.getMessage());
     }
 
+    @ExceptionHandler(AddressNotFoundException.class)
+    @ResponseStatus(NOT_FOUND)
+    public ProblemDetail handlerProblemDetail(AddressNotFoundException exception){
+        return ProblemDetail.forStatusAndDetail(NOT_FOUND, exception.getMessage());
+    }
+
 
 }
