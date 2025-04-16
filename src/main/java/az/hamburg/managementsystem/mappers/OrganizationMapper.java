@@ -1,6 +1,7 @@
 package az.hamburg.managementsystem.mappers;
 
 import az.hamburg.managementsystem.domain.Organization;
+import az.hamburg.managementsystem.model.organization.request.OrganizationCreateDetailRequest;
 import az.hamburg.managementsystem.model.organization.request.OrganizationCreateRequest;
 import az.hamburg.managementsystem.model.organization.request.OrganizationUpdateRequest;
 import az.hamburg.managementsystem.model.organization.response.OrganizationCreateResponse;
@@ -17,7 +18,7 @@ public interface OrganizationMapper {
 
     OrganizationCreateResponse entityToCreateResponse (Organization organization);
 
-//    List<OrganizationReadResponse> listEntityToListReadResponse(List<Organization> organizations);
+    OrganizationCreateRequest detailToCreateModel(OrganizationCreateDetailRequest createDetail);
 
     OrganizationReadResponse entityToReadResponse(Organization organization);
 

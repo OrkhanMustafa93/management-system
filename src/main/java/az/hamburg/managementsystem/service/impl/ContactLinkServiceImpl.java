@@ -1,10 +1,8 @@
 package az.hamburg.managementsystem.service.impl;
 
-import az.hamburg.managementsystem.domain.Contact;
 import az.hamburg.managementsystem.domain.ContactLink;
 import az.hamburg.managementsystem.exception.error.ErrorMessage;
 import az.hamburg.managementsystem.exception.handler.ContactLinkNotFoundException;
-import az.hamburg.managementsystem.exception.handler.ContactNotFoundException;
 import az.hamburg.managementsystem.mappers.ContactLinkMapper;
 import az.hamburg.managementsystem.model.contactlink.request.ContactLinkCreateRequest;
 import az.hamburg.managementsystem.model.contactlink.request.ContactLinkUpdateRequest;

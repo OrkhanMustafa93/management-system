@@ -3,6 +3,7 @@ package az.hamburg.managementsystem.model.organization.request;
 import az.hamburg.managementsystem.model.contact.request.ContactCreateRequest;
 import az.hamburg.managementsystem.model.dto.ContactLinkDTO;
 import az.hamburg.managementsystem.validation.organization.OrganizationName;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,8 +19,8 @@ public class OrganizationCreateDetailRequest {
 
     private Boolean status;
 
+    @Valid
     private ContactCreateRequest contact;
 
-    private List<ContactLinkDTO> links;
 
 }

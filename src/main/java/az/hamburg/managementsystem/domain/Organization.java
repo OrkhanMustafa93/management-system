@@ -22,4 +22,7 @@ public class Organization extends BaseDomain {
     private String name;
     private Boolean status;
 
+    private Long contactId;
+
+
 }

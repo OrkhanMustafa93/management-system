@@ -18,9 +18,9 @@ public class ContactLink extends BaseDomain {
     private Long id;
 
     private String hyperLink;
+
     private String anchorText;
 
-    @ManyToOne
-    @JoinColumn(name = "contact_id")
-    private Contact contact;
+    private Long contactId;
+
 }
