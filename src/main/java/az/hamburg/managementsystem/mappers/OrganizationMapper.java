@@ -4,15 +4,14 @@ import az.hamburg.managementsystem.domain.Organization;
 import az.hamburg.managementsystem.model.organization.request.OrganizationCreateDetailRequest;
 import az.hamburg.managementsystem.model.organization.request.OrganizationCreateRequest;
 import az.hamburg.managementsystem.model.organization.request.OrganizationUpdateRequest;
-import az.hamburg.managementsystem.model.organization.response.OrganizationCreateResponse;
-import az.hamburg.managementsystem.model.organization.response.OrganizationReadResponse;
-import az.hamburg.managementsystem.model.organization.response.OrganizationUpdateResponse;
+import az.hamburg.managementsystem.model.organization.response.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
 @Mapper(componentModel = "spring",unmappedTargetPolicy = ReportingPolicy.IGNORE,
         unmappedSourcePolicy = ReportingPolicy.IGNORE)
-public interface OrganizationMapper {
+public interface
+OrganizationMapper {
 
     Organization createRequestToEntity (OrganizationCreateRequest createRequest);
 
@@ -25,5 +24,12 @@ public interface OrganizationMapper {
     Organization updateRequestToEntity(OrganizationUpdateRequest updateRequest);
 
     OrganizationUpdateResponse entityToUpdateResponse(Organization organization);
+
+    OrganizationCreateDetailResponse entityToOrganizationCreateDetailResponse(Organization entity);
+
+    OrganizationReadDetailResponse entityToOrganizationReadDetailResponse(Organization entity);
+
+    Organization organizationCreateDetailRequestToEntity(OrganizationCreateDetailRequest detailRequest);
+
 
 }
