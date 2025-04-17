@@ -15,6 +15,7 @@ import az.hamburg.managementsystem.model.organization.response.OrganizationReadR
 import az.hamburg.managementsystem.model.organization.response.OrganizationUpdateResponse;
 import az.hamburg.managementsystem.model.user.response.UserReadResponse;
 import az.hamburg.managementsystem.repository.OrganizationRepository;
+import az.hamburg.managementsystem.repository.UserRepository;
 import az.hamburg.managementsystem.service.OrganizationService;
 import az.hamburg.managementsystem.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +33,7 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     private final OrganizationRepository organizationRepository;
     private final OrganizationMapper organizationMapper;
-    private final UserService userService;
+    private final UserRepository userRepository;
 
     @Override
     public OrganizationCreateResponse create(OrganizationCreateRequest createRequest) {
@@ -61,7 +62,7 @@ public class OrganizationServiceImpl implements OrganizationService {
     @Override
     public OrganizationUpdateResponse update(Long id, OrganizationUpdateRequest updateRequest) {
 
-        UserReadResponse userReadResponse = userService.getId(id);
+        User userReadResponse = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(ErrorMessage.USER_NOT_FOUND, HttpStatus.NOT_FOUND.name()));
         if (userReadResponse.getRoleType().equals(RoleType.ADMIN)) {
             Organization organization = organizationMapper.updateRequestToEntity(updateRequest);
             Organization foundedOrganization = organizationRepository
@@ -79,7 +80,7 @@ public class OrganizationServiceImpl implements OrganizationService {
     @Override
     public void delete(Long id, Long userId) {
 
-        UserReadResponse userReadResponse = userService.getId(userId);
+        User userReadResponse = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(ErrorMessage.USER_NOT_FOUND, HttpStatus.NOT_FOUND.name()));
         if (!userReadResponse.getRoleType().equals(RoleType.ADMIN)) {
             throw new UserUnAuthorizedException(ErrorMessage.USERUNAUTHORIZED, HttpStatus.UNAUTHORIZED.name());
         }
