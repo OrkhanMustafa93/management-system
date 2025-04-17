@@ -29,6 +29,4 @@ public class ContactCreateRequest {
     @Valid
     private List<ContactLinkDTO> links;
 
-    private AddressCreateRequest address;
-
 }

@@ -1,6 +1,8 @@
 package az.hamburg.managementsystem.model.organization.request;
 
+import az.hamburg.managementsystem.model.address.request.AddressCreateRequest;
 import az.hamburg.managementsystem.model.contact.request.ContactCreateRequest;
+import az.hamburg.managementsystem.model.contactlink.request.ContactLinkCreateRequest;
 import az.hamburg.managementsystem.model.dto.ContactLinkDTO;
 import az.hamburg.managementsystem.validation.organization.OrganizationName;
 import jakarta.validation.Valid;
@@ -21,6 +23,10 @@ public class OrganizationCreateDetailRequest {
 
     @Valid
     private ContactCreateRequest contact;
+
+    private AddressCreateRequest address;
+
+    private ContactLinkCreateRequest contactLink;
 
 
 }
