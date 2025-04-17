@@ -11,4 +11,7 @@ public class ContactLinkUpdateRequest {
 
     private String hyperLink;
     private String anchorText;
+
+    private Long contactId;
+
 }

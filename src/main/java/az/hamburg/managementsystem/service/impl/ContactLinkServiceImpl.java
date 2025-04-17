@@ -10,6 +10,7 @@ import az.hamburg.managementsystem.model.contactlink.response.ContactLinkCreateR
 import az.hamburg.managementsystem.model.contactlink.response.ContactLinkReadResponse;
 import az.hamburg.managementsystem.model.contactlink.response.ContactLinkUpdateResponse;
 import az.hamburg.managementsystem.repository.ContactLinkRepository;
+import az.hamburg.managementsystem.repository.ContactRepository;
 import az.hamburg.managementsystem.service.ContactLinkService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +26,7 @@ public class ContactLinkServiceImpl implements ContactLinkService {
 
     private final ContactLinkMapper contactLinkMapper;
     private final ContactLinkRepository contactLinkRepository;
+    private final ContactRepository contactRepository;
 
     @Override
     public ContactLinkCreateResponse create(ContactLinkCreateRequest createRequest) {

@@ -1,11 +1,11 @@
 package az.hamburg.managementsystem.controller;
 
-import az.hamburg.managementsystem.domain.User;
+import az.hamburg.managementsystem.facade.OrganizationFacade;
+import az.hamburg.managementsystem.facade.impl.OrganizationFacadeImpl;
+import az.hamburg.managementsystem.model.organization.request.OrganizationCreateDetailRequest;
 import az.hamburg.managementsystem.model.organization.request.OrganizationCreateRequest;
 import az.hamburg.managementsystem.model.organization.request.OrganizationUpdateRequest;
-import az.hamburg.managementsystem.model.organization.response.OrganizationCreateResponse;
-import az.hamburg.managementsystem.model.organization.response.OrganizationReadResponse;
-import az.hamburg.managementsystem.model.organization.response.OrganizationUpdateResponse;
+import az.hamburg.managementsystem.model.organization.response.*;
 import az.hamburg.managementsystem.service.OrganizationService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -23,11 +23,12 @@ import java.util.List;
 public class OrganizationController {
     
     private final OrganizationService organizationService;
+    private final OrganizationFacadeImpl organizationFacadeImpl;
 
     @PostMapping("/userId/{id}")
     @ResponseStatus(HttpStatus.CREATED)
-    public OrganizationCreateResponse create(@Valid  @RequestBody OrganizationCreateRequest createRequest, @PathVariable Long id) {
-        return organizationService.create(createRequest, id);
+    public OrganizationCreateResponse create(@Valid  @RequestBody OrganizationCreateRequest createRequest) {
+        return organizationService.create(createRequest);
     }
 
     @GetMapping("/{id}")
@@ -52,6 +53,12 @@ public class OrganizationController {
     @ResponseStatus(HttpStatus.OK)
     public OrganizationUpdateResponse update(@PathVariable Long id, @RequestBody OrganizationUpdateRequest updateRequest) {
         return organizationService.update(id, updateRequest);
+    }
+
+    @PostMapping("/detail/userId/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public OrganizationCreateDetailResponse createDetail(@PathVariable Long id , @RequestBody OrganizationCreateDetailRequest request){
+        return organizationFacadeImpl.createDetail(request ,id);
     }
     
 }

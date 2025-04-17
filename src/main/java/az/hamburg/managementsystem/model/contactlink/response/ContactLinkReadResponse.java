@@ -18,4 +18,7 @@ public class ContactLinkReadResponse {
     private String createdBy;
     private LocalDateTime modified;
     private String modifiedBy;
+
+    private Long contactId;
+
 }

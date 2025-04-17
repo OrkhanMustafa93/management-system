@@ -2,6 +2,7 @@ package az.hamburg.managementsystem.model.contactlink.request;
 
 import az.hamburg.managementsystem.validation.contactlink.ContactLinkAnchorText;
 import az.hamburg.managementsystem.validation.contactlink.ContactLinkHyperLink;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,4 +18,5 @@ public class ContactLinkCreateRequest {
     @ContactLinkAnchorText
     private String anchorText;
 
+    private Long contactId;
 }

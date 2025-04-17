@@ -9,7 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrganizationCreateRequest {
+
     @OrganizationName
     private String name;
     private Boolean status;
+
 }

@@ -28,4 +28,6 @@ public class OrganizationJoinRequest extends BaseDomain {
     @Enumerated(EnumType.STRING)
     private RequestStatus status;
 
+    //crud ve her sey....(service )
+
 }

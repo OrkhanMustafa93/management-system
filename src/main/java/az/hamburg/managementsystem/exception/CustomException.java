@@ -3,6 +3,7 @@ package az.hamburg.managementsystem.exception;
 import az.hamburg.managementsystem.exception.error.ErrorResponse;
 import az.hamburg.managementsystem.exception.handler.*;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -51,11 +52,33 @@ public class CustomException {
         String fieldName = exception.getBindingResult().getFieldError().getField();
         String message = exception.getBindingResult().getFieldError().getDefaultMessage();
 
+        ErrorResponse errorResponse = new ErrorResponse();
+        errorResponse.setCode(BAD_REQUEST.name());
+        errorResponse.setMessage(fieldName + message);
+
         return ErrorResponse.builder()
                 .message(fieldName + message)
                 .code(BAD_REQUEST.name())
                 .build();
 
+    }
+
+    @ExceptionHandler(WrongPhoneNumberException.class)
+    @ResponseStatus(BAD_REQUEST)
+    public ProblemDetail handlerWrongPhoneNumber(WrongPhoneNumberException e) {
+        return ProblemDetail.forStatusAndDetail(BAD_REQUEST, e.getMessage());
+    }
+
+    @ExceptionHandler(AddressNotFoundException.class)
+    @ResponseStatus(NOT_FOUND)
+    public ProblemDetail handlerProblemDetail(AddressNotFoundException exception){
+        return ProblemDetail.forStatusAndDetail(NOT_FOUND, exception.getMessage());
+    }
+
+    @ExceptionHandler(OrganizationJoinRequestNotFoundException.class)
+    @ResponseStatus(NOT_FOUND)
+    public ProblemDetail handlerOrganizationJoinRequestNotFound(OrganizationJoinRequestNotFoundException e) {
+        return ProblemDetail.forStatusAndDetail(NOT_FOUND, e.getMessage());
     }
 
 }
