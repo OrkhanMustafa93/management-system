@@ -27,8 +27,6 @@ public class UserServiceImpl implements UserService {
 
         private final UserRepository userRepository;
         private final UserMapper userMapper;
-        private final UserService userService;
-
 
     @Override
     public UserCreateResponse create(UserCreateRequest createRequest) {
