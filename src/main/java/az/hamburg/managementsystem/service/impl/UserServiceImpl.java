@@ -3,6 +3,7 @@ import az.hamburg.managementsystem.domain.RoleType;
 import az.hamburg.managementsystem.domain.User;
 import az.hamburg.managementsystem.exception.error.ErrorMessage;
 import az.hamburg.managementsystem.exception.handler.UserNotFoundException;
+import az.hamburg.managementsystem.exception.handler.UserUnAuthorizedException;
 import az.hamburg.managementsystem.exception.handler.WrongPhoneNumberException;
 import az.hamburg.managementsystem.mappers.UserMapper;
 import az.hamburg.managementsystem.model.user.request.UserCreateRequest;
@@ -26,7 +27,6 @@ public class UserServiceImpl implements UserService {
 
         private final UserRepository userRepository;
         private final UserMapper userMapper;
-
 
     @Override
     public UserCreateResponse create(UserCreateRequest createRequest) {
@@ -79,4 +79,37 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new UserNotFoundException(ErrorMessage.USER_NOT_FOUND, HttpStatus.NOT_FOUND.name()));
         userRepository.deleteById(user.getId());
     }
+
+//    @Override
+//    public UserUpdateResponse statusUpdate(Long id, Long userId) {
+//        User foundedUser = userRepository.findById(id)
+//                .orElseThrow(() -> new UserNotFoundException(ErrorMessage.USER_NOT_FOUND, HttpStatus.NOT_FOUND.name()));
+//        UserReadResponse userReadResponse = userService.getId(userId);
+//        if (!userReadResponse.getRoleType().equals(RoleType.MODERATOR)) {
+//            throw new UserUnAuthorizedException(ErrorMessage.USERUNAUTHORIZED, HttpStatus.UNAUTHORIZED.name());
+//        }
+//        foundedUser.setStatus(true);
+//        userRepository.save(foundedUser);
+//
+//        return userMapper.entityToUpdateResponse(foundedUser);
+//    }
+
+//    @Override
+//    public UserUpdateResponse roleUpdate(Long id, RoleType roleType, Long userId) {
+//        return null;
+//    }
+
+//    @Override
+//    public UserUpdateResponse roleUpdate(Long id, UserUpdateRequest userUpdateRequest, Long userId) {
+//        User foundedUser = userRepository.findById(id)
+//                .orElseThrow(() -> new UserNotFoundException(ErrorMessage.USER_NOT_FOUND, HttpStatus.NOT_FOUND.name()));
+//        UserReadResponse userReadResponse = userService.getId(userId);
+//        if (!userReadResponse.getRoleType().equals(RoleType.ADMIN)) {
+//            throw new UserUnAuthorizedException(ErrorMessage.USERUNAUTHORIZED, HttpStatus.UNAUTHORIZED.name());
+//        }
+//        foundedUser.setRoleType(RoleType.MODERATOR);
+//        userRepository.save(foundedUser);
+//
+//        return userMapper.entityToUpdateResponse(foundedUser);}
+
 }

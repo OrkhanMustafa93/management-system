@@ -23,7 +23,7 @@ import java.util.List;
 public class OrganizationController {
     
     private final OrganizationService organizationService;
-    private final OrganizationFacadeImpl organizationFacadeImpl;
+    private final OrganizationFacade organizationFacade;
 
     @PostMapping("/userId/{id}")
     @ResponseStatus(HttpStatus.CREATED)
@@ -58,7 +58,7 @@ public class OrganizationController {
     @PostMapping("/detail/userId/{id}")
     @ResponseStatus(HttpStatus.CREATED)
     public OrganizationCreateDetailResponse createDetail(@PathVariable Long id , @RequestBody OrganizationCreateDetailRequest request){
-        return organizationFacadeImpl.createDetail(request ,id);
+        return organizationFacade.createDetail(request ,id);
     }
     
 }

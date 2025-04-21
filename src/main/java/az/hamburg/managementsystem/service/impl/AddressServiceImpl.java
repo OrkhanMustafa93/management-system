@@ -1,18 +1,26 @@
 package az.hamburg.managementsystem.service.impl;
 
 import az.hamburg.managementsystem.domain.Address;
+import az.hamburg.managementsystem.domain.Role;
+import az.hamburg.managementsystem.domain.RoleType;
 import az.hamburg.managementsystem.domain.User;
 import az.hamburg.managementsystem.exception.error.ErrorMessage;
 import az.hamburg.managementsystem.exception.handler.AddressNotFoundException;
 import az.hamburg.managementsystem.exception.handler.UserNotFoundException;
+import az.hamburg.managementsystem.exception.handler.UserUnAuthorizedException;
 import az.hamburg.managementsystem.mappers.AddressMapper;
+import az.hamburg.managementsystem.mappers.UserMapper;
 import az.hamburg.managementsystem.model.address.request.AddressCreateRequest;
 import az.hamburg.managementsystem.model.address.request.AddressUpdateRequest;
 import az.hamburg.managementsystem.model.address.response.AddressCreateResponse;
 import az.hamburg.managementsystem.model.address.response.AddressReadResponse;
 import az.hamburg.managementsystem.model.address.response.AddressUpdateResponse;
+import az.hamburg.managementsystem.model.user.request.UserUpdateRequest;
+import az.hamburg.managementsystem.model.user.response.UserReadResponse;
 import az.hamburg.managementsystem.repository.AddressRepository;
+import az.hamburg.managementsystem.repository.UserRepository;
 import az.hamburg.managementsystem.service.AddressService;
+import az.hamburg.managementsystem.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -74,12 +82,26 @@ public class AddressServiceImpl implements AddressService {
                 .toList();
     }
 
-    @Override
-    public void delete(Long id) {
-        Address address = addressRepository.findById(id)
-                .orElseThrow(() -> new AddressNotFoundException(ErrorMessage.ADDRESS_NOT_FOUND, HttpStatus.NOT_FOUND.name()));
-        addressRepository.deleteById(address.getId());
+//    @Override
+//    public void delete(List<Long> ids) {
+//        List<Address> addresses = addressRepository.findAllById(ids);
+//
+//        if (addresses.size() != ids.size()) {
+//            throw new AddressNotFoundException(ErrorMessage.ADDRESS_NOT_FOUND, HttpStatus.NOT_FOUND.name());
+//        }
+//
+//        addressRepository.deleteAllById(ids);
+//    }
 
-    }
+
+
+
+//    @Override
+//    public void delete(Long id) {
+//        Address address = addressRepository.findById(id)
+//                .orElseThrow(() -> new AddressNotFoundException(ErrorMessage.ADDRESS_NOT_FOUND, HttpStatus.NOT_FOUND.name()));
+//        addressRepository.deleteById(address.getId());
+//
+//    }
 }
 

@@ -52,4 +52,10 @@ public class UserController {
         return userService.update(id, updateRequest);
     }
 
+//    @PutMapping("/{id}/status-update/{userId}")
+//    @ResponseStatus(HttpStatus.OK)
+//    public UserUpdateResponse statusUpdate(@PathVariable Long id, @PathVariable Long userId) {
+//        return userService.statusUpdate(id, userId);
+//    }
+
 }
