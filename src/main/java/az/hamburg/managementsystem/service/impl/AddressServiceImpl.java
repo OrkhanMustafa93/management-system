@@ -1,5 +1,6 @@
 package az.hamburg.managementsystem.service.impl;
 
+import az.hamburg.managementsystem.common.SelectIds;
 import az.hamburg.managementsystem.domain.Address;
 import az.hamburg.managementsystem.domain.Role;
 import az.hamburg.managementsystem.domain.RoleType;
@@ -26,6 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -40,7 +42,6 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public AddressCreateResponse create(AddressCreateRequest addressCreateRequest) {
         Address address = addressMapper.createRequestToEntity(addressCreateRequest);
-        addressRepository.save(address);
         Address saved = addressRepository.save(address);
         return addressMapper.entityToCreateResponse(saved);
     }
@@ -82,16 +83,26 @@ public class AddressServiceImpl implements AddressService {
                 .toList();
     }
 
-//    @Override
-//    public void delete(List<Long> ids) {
-//        List<Address> addresses = addressRepository.findAllById(ids);
-//
-//        if (addresses.size() != ids.size()) {
-//            throw new AddressNotFoundException(ErrorMessage.ADDRESS_NOT_FOUND, HttpStatus.NOT_FOUND.name());
-//        }
-//
-//        addressRepository.deleteAllById(ids);
-//    }
+    @Override
+    public void delete(SelectIds selectIds) {
+        List<Address> addresses = addressRepository.findAllById(selectIds.getIds());
+
+        List<Long> addressIds = new ArrayList<>();
+
+        for (Address address : addresses) {
+            addressIds.add(address.getId());
+        }
+
+        selectIds.getIds().removeAll(addressIds);
+        log.info("SelectIds " + selectIds.getIds() + " selectIds");
+
+        if (addresses.size() != selectIds.getIds().size()) {
+            throw new AddressNotFoundException(ErrorMessage.ADDRESS_NOT_FOUND, HttpStatus.NOT_FOUND.name());
+        }
+
+        addressRepository.deleteAllById(selectIds.getIds());
+        //todo: not found exception(List qebul eden)
+    }
 
 
 

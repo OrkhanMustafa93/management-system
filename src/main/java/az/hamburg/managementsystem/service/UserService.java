@@ -21,11 +21,18 @@ public interface UserService {
 
     void delete (Long id);
 
+    //!!!!!!!!!!!!
+//    UserUpdateResponse statusUpdate(Long id, Long userId);
+
+        UserUpdateResponse roleUpdate(Long id, Long changerId, RoleType roleType);
+
+        UserUpdateResponse statusUpdate(Long id, Long changerId, boolean status);
+
+
 ////    UserUpdateResponse statusUpdate(Long id, UserUpdateRequest updateRequest, Long userId);
 //
 //    UserUpdateResponse statusUpdate(Long id, Long userId);
 //
-////    UserUpdateResponse roleUpdate(Long id, RoleType roleType, Long userId);
 //
 //
 //    UserUpdateResponse roleUpdate(Long id, UserUpdateRequest userUpdateRequest, Long userId);
