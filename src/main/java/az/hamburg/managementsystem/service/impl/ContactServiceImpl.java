@@ -1,21 +1,33 @@
 package az.hamburg.managementsystem.service.impl;
 
+import az.hamburg.managementsystem.domain.Address;
 import az.hamburg.managementsystem.domain.Contact;
+import az.hamburg.managementsystem.domain.ContactLink;
 import az.hamburg.managementsystem.exception.error.ErrorMessage;
 import az.hamburg.managementsystem.exception.handler.ContactNotFoundException;
+import az.hamburg.managementsystem.mappers.AddressMapper;
+import az.hamburg.managementsystem.mappers.ContactLinkMapper;
 import az.hamburg.managementsystem.mappers.ContactMapper;
+import az.hamburg.managementsystem.model.address.response.AddressReadResponse;
 import az.hamburg.managementsystem.model.contact.request.ContactCreateRequest;
 import az.hamburg.managementsystem.model.contact.request.ContactUpdateRequest;
 import az.hamburg.managementsystem.model.contact.response.ContactCreateResponse;
 import az.hamburg.managementsystem.model.contact.response.ContactReadResponse;
 import az.hamburg.managementsystem.model.contact.response.ContactUpdateResponse;
+import az.hamburg.managementsystem.model.contactlink.response.ContactLinkReadResponse;
+import az.hamburg.managementsystem.model.dto.ContactLinkDTO;
+import az.hamburg.managementsystem.repository.ContactLinkRepository;
 import az.hamburg.managementsystem.repository.ContactRepository;
+import az.hamburg.managementsystem.service.AddressService;
+import az.hamburg.managementsystem.service.ContactLinkService;
 import az.hamburg.managementsystem.service.ContactService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -25,6 +37,10 @@ public class ContactServiceImpl implements ContactService {
 
     private final ContactRepository contactRepository;
     private final ContactMapper contactMapper;
+    private final AddressService addressService;
+    private final ContactLinkService contactLinkService;
+    private final ContactLinkMapper contactLinkMapper;
+    private final ContactLinkRepository contactLinkRepository;
 
     @Override
     public ContactCreateResponse create(ContactCreateRequest createRequest) {
@@ -39,7 +55,21 @@ public class ContactServiceImpl implements ContactService {
         Contact foundedContact = contactRepository.findById(id)
                 .orElseThrow(() -> new ContactNotFoundException(ErrorMessage.CONTACT_NOT_FOUND, HttpStatus.NOT_FOUND.name()));
 
-        return contactMapper.entityToReadResponse(foundedContact);
+
+        ContactReadResponse contactReadResponse = contactMapper.entityToReadResponse(foundedContact);
+
+        AddressReadResponse foundedAddress = addressService.getId(foundedContact.getAddressId());
+        contactReadResponse.setAddress(foundedAddress);
+
+
+        List<ContactLink> foundedContactLink = contactLinkRepository.findByContactId(foundedContact.getId());
+
+        List<ContactLinkDTO> contactLinkDto =foundedContactLink.stream()
+                .map(contactLinkMapper::entityToContactLinkDto)
+                .toList();
+        contactReadResponse.setLinks(contactLinkDto);
+
+        return contactReadResponse;
 
     }
 

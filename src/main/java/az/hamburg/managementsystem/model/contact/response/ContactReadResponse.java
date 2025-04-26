@@ -1,5 +1,7 @@
 package az.hamburg.managementsystem.model.contact.response;
 
+import az.hamburg.managementsystem.model.address.response.AddressCreateResponse;
+import az.hamburg.managementsystem.model.address.response.AddressReadResponse;
 import az.hamburg.managementsystem.model.dto.ContactLinkDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,6 +25,8 @@ public class ContactReadResponse {
     private String modifiedBy;
 
     private List<ContactLinkDTO> links;
+
+    private AddressReadResponse  address;
 
 
 }
