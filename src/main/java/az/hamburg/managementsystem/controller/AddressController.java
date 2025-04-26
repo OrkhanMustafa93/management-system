@@ -1,5 +1,6 @@
 package az.hamburg.managementsystem.controller;
 
+import az.hamburg.managementsystem.common.SelectIds;
 import az.hamburg.managementsystem.model.address.request.AddressCreateRequest;
 import az.hamburg.managementsystem.model.address.request.AddressUpdateRequest;
 import az.hamburg.managementsystem.model.address.response.AddressCreateResponse;
@@ -41,12 +42,20 @@ public class AddressController {
         return addressService.getAll();
     }
 
-//    @DeleteMapping
-//    @ResponseStatus(HttpStatus.NO_CONTENT)
-//    public void delete(@RequestBody List<Long> ids) {
-//        addressService.delete(ids);
-//    }
+    @DeleteMapping
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@RequestBody SelectIds request) {
+        addressService.delete(request);
+    }
 
+
+
+
+//    @DeleteMapping("/multi-delete")
+//    @ResponseStatus(HttpStatus.NO_CONTENT)
+//    public void deleteMultipleAddresses(@RequestBody List<Long> addressIds) {
+//        addressService.delete(addressIds);
+//    }
 
 //    @DeleteMapping("/{List<Long> ids}")
 //    @ResponseStatus(HttpStatus.NO_CONTENT)

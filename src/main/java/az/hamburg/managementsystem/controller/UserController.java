@@ -1,4 +1,5 @@
 package az.hamburg.managementsystem.controller;
+import az.hamburg.managementsystem.domain.RoleType;
 import az.hamburg.managementsystem.model.user.request.UserCreateRequest;
 import az.hamburg.managementsystem.model.user.request.UserUpdateRequest;
 import az.hamburg.managementsystem.model.user.response.UserCreateResponse;
@@ -51,6 +52,27 @@ public class UserController {
     public UserUpdateResponse update(@PathVariable Long id, @RequestBody UserUpdateRequest updateRequest) {
         return userService.update(id, updateRequest);
     }
+
+    //!!!!!!!!!!!!
+//    @PutMapping("/{id}/status-update/{userId}")
+//    @ResponseStatus(HttpStatus.OK)
+//    public UserUpdateResponse statusUpdate(@PathVariable Long id, @PathVariable Long userId) {
+//        return userService.statusUpdate(id, userId);
+//    }
+
+    @PutMapping("/{id}/role-update/{changerId}")
+    @ResponseStatus(HttpStatus.OK)
+    public UserUpdateResponse updateRole(@PathVariable Long id, @PathVariable Long changerId, @RequestParam RoleType roleType) {
+        return userService.roleUpdate(id, changerId, roleType);
+    }
+
+    @PutMapping("/{id}/status-update/{changerId}")
+    @ResponseStatus(HttpStatus.OK)
+    public UserUpdateResponse updateStatus(@PathVariable Long id, @PathVariable Long changerId, @RequestParam boolean status) {
+        return userService.statusUpdate(id, changerId, status);
+    }
+
+
 
 //    @PutMapping("/{id}/status-update/{userId}")
 //    @ResponseStatus(HttpStatus.OK)

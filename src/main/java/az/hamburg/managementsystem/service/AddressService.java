@@ -1,5 +1,6 @@
 package az.hamburg.managementsystem.service;
 
+import az.hamburg.managementsystem.common.SelectIds;
 import az.hamburg.managementsystem.model.address.request.AddressCreateRequest;
 import az.hamburg.managementsystem.model.address.request.AddressUpdateRequest;
 import az.hamburg.managementsystem.model.address.response.AddressCreateResponse;
@@ -18,6 +19,6 @@ public interface AddressService {
 
     List<AddressReadResponse> getAll();
 
-//    void delete(List<Long> ids);
+    void delete(SelectIds selectIds);
 
 }
