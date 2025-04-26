@@ -25,7 +25,9 @@ public class CustomException {
     @ExceptionHandler(OrganizationNotFoundException.class)
     @ResponseStatus(NOT_FOUND)
     public ProblemDetail handlerOrganizationNotFound(OrganizationNotFoundException e) {
-        return ProblemDetail.forStatusAndDetail(NOT_FOUND, e.getMessage());
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(NOT_FOUND, e.getMessage());
+        problemDetail.setProperty("organizationIds", e.getMessage());// e.getOrganizationIds());
+        return problemDetail;
     }
 
     @ExceptionHandler(UserUnAuthorizedException.class)

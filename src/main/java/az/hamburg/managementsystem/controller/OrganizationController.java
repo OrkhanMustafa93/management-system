@@ -1,9 +1,12 @@
 package az.hamburg.managementsystem.controller;
 
+import az.hamburg.managementsystem.SelectIds;
+import az.hamburg.managementsystem.domain.Organization;
 import az.hamburg.managementsystem.facade.OrganizationFacade;
-import az.hamburg.managementsystem.facade.impl.OrganizationFacadeImpl;
+import az.hamburg.managementsystem.model.dto.OrganizationStatusReadResponse;
 import az.hamburg.managementsystem.model.organization.request.OrganizationCreateDetailRequest;
 import az.hamburg.managementsystem.model.organization.request.OrganizationCreateRequest;
+import az.hamburg.managementsystem.model.organization.request.OrganizationUpdateDetailRequest;
 import az.hamburg.managementsystem.model.organization.request.OrganizationUpdateRequest;
 import az.hamburg.managementsystem.model.organization.response.*;
 import az.hamburg.managementsystem.service.OrganizationService;
@@ -33,14 +36,14 @@ public class OrganizationController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public OrganizationReadResponse getId(@PathVariable Long id) {
-        return organizationService.getId(id);
+    public OrganizationReadDetailResponse getId(@PathVariable Long id) {
+        return organizationFacade.getByIdOrganizationDetail(id);
     }
 
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
-    public List<OrganizationReadResponse> getAll() {
-        return organizationService.getAll();
+    public List<OrganizationReadDetailResponse> getAll() {
+        return organizationFacade.getAll();
     }
 
     @DeleteMapping("/{organizationId}/userId/{id}")
@@ -60,5 +63,28 @@ public class OrganizationController {
     public OrganizationCreateDetailResponse createDetail(@PathVariable Long id , @RequestBody OrganizationCreateDetailRequest request){
         return organizationFacade.createDetail(request ,id);
     }
-    
+
+    @PutMapping("/{userId}/detailUserId/{organizationId}")
+    @ResponseStatus(HttpStatus.OK)
+    public OrganizationUpdateDetailResponse updateDetail(@PathVariable Long userId,@PathVariable Long organizationId, @RequestBody OrganizationUpdateDetailRequest updateRequest) {
+        return organizationFacade.updateDetail(userId,organizationId,updateRequest);
+    }
+
+    @DeleteMapping("userId/{userId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteOrganizations(@PathVariable Long userId,SelectIds request) {
+        organizationFacade.deleteOrganizations(userId,request);
+    }
+
+    @PutMapping("/{userId}/status-update/{organizationId}")
+    @ResponseStatus(HttpStatus.OK)
+    public OrganizationStatusReadResponse updateStatus(@PathVariable Long userId, @PathVariable Long organizationId, @RequestParam boolean status) {
+        return organizationFacade.updateStatus(userId,organizationId,status);
+    }
+
+    @GetMapping("status-true")
+    @ResponseStatus(HttpStatus.OK)
+    public List<OrganizationReadDetailResponse> getOrganizationsStatus() {
+        return organizationFacade.getAllOrganizationsStatusTrue();
+    }
 }

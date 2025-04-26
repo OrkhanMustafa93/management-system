@@ -1,5 +1,7 @@
 package az.hamburg.managementsystem.model.contact.response;
 
+import az.hamburg.managementsystem.model.address.response.AddressCreateResponse;
+import az.hamburg.managementsystem.model.address.response.AddressUpdateResponse;
 import az.hamburg.managementsystem.model.dto.ContactLinkDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,7 +22,6 @@ public class ContactUpdateResponse {
     private LocalDateTime modified;
     private String modifiedBy;
 
-    private List<ContactLinkDTO> links;
 
 
 }

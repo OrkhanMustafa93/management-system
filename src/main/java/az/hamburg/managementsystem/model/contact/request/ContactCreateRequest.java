@@ -26,7 +26,5 @@ public class ContactCreateRequest {
     @ContactCallCenter
     private String callCenter;
 
-    @Valid
-    private List<ContactLinkDTO> links;
 
 }
