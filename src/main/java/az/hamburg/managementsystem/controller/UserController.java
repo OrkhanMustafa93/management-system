@@ -2,9 +2,7 @@ package az.hamburg.managementsystem.controller;
 import az.hamburg.managementsystem.domain.RoleType;
 import az.hamburg.managementsystem.model.user.request.UserCreateRequest;
 import az.hamburg.managementsystem.model.user.request.UserUpdateRequest;
-import az.hamburg.managementsystem.model.user.response.UserCreateResponse;
-import az.hamburg.managementsystem.model.user.response.UserReadResponse;
-import az.hamburg.managementsystem.model.user.response.UserUpdateResponse;
+import az.hamburg.managementsystem.model.user.response.*;
 import az.hamburg.managementsystem.service.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -62,13 +60,13 @@ public class UserController {
 
     @PutMapping("/{id}/role-update/{changerId}")
     @ResponseStatus(HttpStatus.OK)
-    public UserUpdateResponse updateRole(@PathVariable Long id, @PathVariable Long changerId, @RequestParam RoleType roleType) {
+    public UserRoleUpdateResponse updateRole(@PathVariable Long id, @PathVariable Long changerId, @RequestParam RoleType roleType) {
         return userService.roleUpdate(id, changerId, roleType);
     }
 
     @PutMapping("/{id}/status-update/{changerId}")
     @ResponseStatus(HttpStatus.OK)
-    public UserUpdateResponse updateStatus(@PathVariable Long id, @PathVariable Long changerId, @RequestParam boolean status) {
+    public UserStatusUpdateResponse updateStatus(@PathVariable Long id, @PathVariable Long changerId, @RequestParam boolean status) {
         return userService.statusUpdate(id, changerId, status);
     }
 

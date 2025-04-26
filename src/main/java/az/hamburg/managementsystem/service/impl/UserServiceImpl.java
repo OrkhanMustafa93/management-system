@@ -8,9 +8,7 @@ import az.hamburg.managementsystem.exception.handler.WrongPhoneNumberException;
 import az.hamburg.managementsystem.mappers.UserMapper;
 import az.hamburg.managementsystem.model.user.request.UserCreateRequest;
 import az.hamburg.managementsystem.model.user.request.UserUpdateRequest;
-import az.hamburg.managementsystem.model.user.response.UserCreateResponse;
-import az.hamburg.managementsystem.model.user.response.UserReadResponse;
-import az.hamburg.managementsystem.model.user.response.UserUpdateResponse;
+import az.hamburg.managementsystem.model.user.response.*;
 import az.hamburg.managementsystem.repository.UserRepository;
 import az.hamburg.managementsystem.service.UserService;
 import ch.qos.logback.core.status.Status;
@@ -83,7 +81,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserUpdateResponse roleUpdate(Long id, Long changerId, RoleType roleType) {
+    public UserRoleUpdateResponse roleUpdate(Long id, Long changerId, RoleType roleType) {
         User foundedUser = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(ErrorMessage.USER_NOT_FOUND, HttpStatus.NOT_FOUND.name()));
 
@@ -95,14 +93,14 @@ public class UserServiceImpl implements UserService {
         }
 
 
-
+        foundedUser.setModifiedBy(changerUser.getUsername());
         foundedUser.setRoleType(roleType);
         userRepository.save(foundedUser);
 
-        return userMapper.entityToUpdateResponse(foundedUser);    }
+        return userMapper.entityToUserRoleUpdateResponse(foundedUser);    }
 
     @Override
-    public UserUpdateResponse statusUpdate(Long id, Long changerId, boolean status) {
+    public UserStatusUpdateResponse statusUpdate(Long id, Long changerId, boolean status) {
         User foundedUser = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(ErrorMessage.USER_NOT_FOUND, HttpStatus.NOT_FOUND.name()));
 
@@ -114,9 +112,12 @@ public class UserServiceImpl implements UserService {
         }
 
         foundedUser.setStatus(status);
+
+        foundedUser.setModifiedBy(changerUser.getUsername());
+
         userRepository.save(foundedUser);
 
-        return userMapper.entityToUpdateResponse(foundedUser);
+        return userMapper.entityToUserStatusUpdateResponse(foundedUser);
     }
 
 

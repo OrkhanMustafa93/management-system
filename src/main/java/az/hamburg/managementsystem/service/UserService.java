@@ -3,9 +3,7 @@ package az.hamburg.managementsystem.service;
 import az.hamburg.managementsystem.domain.RoleType;
 import az.hamburg.managementsystem.model.user.request.UserCreateRequest;
 import az.hamburg.managementsystem.model.user.request.UserUpdateRequest;
-import az.hamburg.managementsystem.model.user.response.UserCreateResponse;
-import az.hamburg.managementsystem.model.user.response.UserReadResponse;
-import az.hamburg.managementsystem.model.user.response.UserUpdateResponse;
+import az.hamburg.managementsystem.model.user.response.*;
 
 import java.util.List;
 
@@ -24,9 +22,9 @@ public interface UserService {
     //!!!!!!!!!!!!
 //    UserUpdateResponse statusUpdate(Long id, Long userId);
 
-        UserUpdateResponse roleUpdate(Long id, Long changerId, RoleType roleType);
+    UserRoleUpdateResponse roleUpdate(Long id, Long changerId, RoleType roleType);
 
-        UserUpdateResponse statusUpdate(Long id, Long changerId, boolean status);
+    UserStatusUpdateResponse statusUpdate(Long id, Long changerId, boolean status);
 
 
 ////    UserUpdateResponse statusUpdate(Long id, UserUpdateRequest updateRequest, Long userId);
