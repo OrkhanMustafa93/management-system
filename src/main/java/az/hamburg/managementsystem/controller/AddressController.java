@@ -41,11 +41,18 @@ public class AddressController {
         return addressService.getAll();
     }
 
-    @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteById(@PathVariable Long id) {
-        addressService.delete(id);
-    }
+//    @DeleteMapping
+//    @ResponseStatus(HttpStatus.NO_CONTENT)
+//    public void delete(@RequestBody List<Long> ids) {
+//        addressService.delete(ids);
+//    }
+
+
+//    @DeleteMapping("/{List<Long> ids}")
+//    @ResponseStatus(HttpStatus.NO_CONTENT)
+//    public void delete(@PathVariable List<Long> ids) {
+//        addressService.delete(ids);
+//    }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)

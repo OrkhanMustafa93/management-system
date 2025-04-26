@@ -18,6 +18,6 @@ public interface AddressService {
 
     List<AddressReadResponse> getAll();
 
-    void delete(Long id);
+//    void delete(List<Long> ids);
 
 }
