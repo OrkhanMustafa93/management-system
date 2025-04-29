@@ -1,21 +1,16 @@
 package az.hamburg.managementsystem.facade.impl;
 
 
-import az.hamburg.managementsystem.SelectIds;
+import az.hamburg.managementsystem.common.SelectIds;
 import az.hamburg.managementsystem.domain.Contact;
-import az.hamburg.managementsystem.domain.ContactLink;
 import az.hamburg.managementsystem.domain.Organization;
 import az.hamburg.managementsystem.domain.RoleType;
 import az.hamburg.managementsystem.exception.error.ErrorMessage;
-import az.hamburg.managementsystem.exception.handler.ContactNotFoundException;
-import az.hamburg.managementsystem.exception.handler.OrganizationNotFoundException;
-import az.hamburg.managementsystem.exception.handler.UserUnAuthorizedException;
+import az.hamburg.managementsystem.exception.handler.*;
 import az.hamburg.managementsystem.facade.OrganizationFacade;
-import az.hamburg.managementsystem.mappers.ContactLinkMapper;
 import az.hamburg.managementsystem.mappers.ContactMapper;
 import az.hamburg.managementsystem.mappers.OrganizationMapper;
 import az.hamburg.managementsystem.model.address.response.AddressCreateResponse;
-import az.hamburg.managementsystem.model.address.response.AddressReadResponse;
 import az.hamburg.managementsystem.model.address.response.AddressUpdateResponse;
 import az.hamburg.managementsystem.model.contact.response.ContactCreateResponse;
 import az.hamburg.managementsystem.model.contact.response.ContactReadResponse;
@@ -23,9 +18,7 @@ import az.hamburg.managementsystem.model.contact.response.ContactUpdateResponse;
 import az.hamburg.managementsystem.model.contactlink.request.ContactLinkCreateRequest;
 import az.hamburg.managementsystem.model.contactlink.request.ContactLinkUpdateRequest;
 import az.hamburg.managementsystem.model.contactlink.response.ContactLinkCreateResponse;
-import az.hamburg.managementsystem.model.contactlink.response.ContactLinkReadResponse;
 import az.hamburg.managementsystem.model.contactlink.response.ContactLinkUpdateResponse;
-import az.hamburg.managementsystem.model.dto.ContactLinkDTO;
 import az.hamburg.managementsystem.model.dto.OrganizationStatusReadResponse;
 import az.hamburg.managementsystem.model.organization.request.OrganizationCreateDetailRequest;
 import az.hamburg.managementsystem.model.organization.request.OrganizationUpdateDetailRequest;
@@ -34,7 +27,6 @@ import az.hamburg.managementsystem.model.organization.response.OrganizationReadD
 import az.hamburg.managementsystem.model.organization.response.OrganizationReadResponse;
 import az.hamburg.managementsystem.model.organization.response.OrganizationUpdateDetailResponse;
 import az.hamburg.managementsystem.model.user.response.UserReadResponse;
-import az.hamburg.managementsystem.repository.ContactLinkRepository;
 import az.hamburg.managementsystem.repository.ContactRepository;
 import az.hamburg.managementsystem.repository.OrganizationRepository;
 import az.hamburg.managementsystem.service.*;
@@ -69,7 +61,16 @@ public class OrganizationFacadeImpl implements OrganizationFacade {
         if (!foundUser.getRoleType().equals(RoleType.ADMIN)) {
             throw new UserUnAuthorizedException(ErrorMessage.USERUNAUTHORIZED, HttpStatus.UNAUTHORIZED.name());
         }
+        String name =request.getName().replaceAll("\\s+", " ").trim();
+        log.info("name {}" ,name);
+
+
+        if (organizationRepository.existsByName(name)) {
+            throw new OrganizationAlReadyExistsException (ErrorMessage.ORGANIZATION_ALREADY_EXISTS, request.getName());
+        }
+
         Organization organizationCreateRequest = organizationMapper.organizationCreateDetailRequestToEntity(request);
+        organizationCreateRequest.setName(name);
         log.info("Created Address : {}", request.getAddress());
         AddressCreateResponse addressCreateResponse = addressService.create(request.getAddress());
 
@@ -167,26 +168,31 @@ public class OrganizationFacadeImpl implements OrganizationFacade {
     }
 
     @Override
-    public void deleteOrganizations(Long userid, SelectIds selectIds) {
-        UserReadResponse userReadResponse = userService.getId(userid);
+    public void deleteOrganizations(Long userId, SelectIds selectIds) {
+        UserReadResponse user = userService.getId(userId);
 
-        if (!userReadResponse.getRoleType().equals(RoleType.ADMIN)) {
+        if (!RoleType.ADMIN.equals(user.getRoleType())) {
             throw new UserUnAuthorizedException(ErrorMessage.USERUNAUTHORIZED, HttpStatus.UNAUTHORIZED.name());
         }
 
-        List<Organization> organizations = organizationRepository.findAllById(selectIds.getIds());
+        List<Long> requestedIds = selectIds.getIds();
+        List<Long> foundIds = organizationRepository.findAllById(requestedIds)
+                .stream()
+                .map(Organization::getId)
+                .toList();
 
-        if (organizations.isEmpty()) {
-            throw new OrganizationNotFoundException(ErrorMessage.ORGANIZATION_NOT_FOUND, HttpStatus.NOT_FOUND.name());
+        // Yox olan ID-ləri tap
+        List<Long> notFoundIds = requestedIds.stream()
+                .filter(id -> !foundIds.contains(id))
+                .toList();
+
+        // Əgər hər hansı ID tapılmayıbsa, heç nə silinməsin
+        if (!notFoundIds.isEmpty()) {
+            throw new OrganizationNotFoundExceptionDetail(notFoundIds);
         }
 
-        List<Long> organizationIds = new ArrayList<>();
-        for (Organization organization : organizations) {
-            organizationIds.add(organization.getId());
-        }
-        selectIds.getIds().removeAll(organizationIds);
-
-        //yuxaridaki kodu streamdan yaz..(filter ve sonra liste at)
+        // Hamısı tapılıbsa, sil
+        organizationRepository.deleteAllById(foundIds);
 
     }
 
@@ -235,24 +241,3 @@ public class OrganizationFacadeImpl implements OrganizationFacade {
         return resultList;
     }
 }
-
-
-
-
-//statusu update etmek  ucun ayri method...
-//        if (!foundUser.getRoleType().equals(RoleType.MODERATOR)) {
-//          organization.setStatus(foundOrganization.getStatus());
-//   }
-
-
-//qurumlarin statusu true olanlari istifadeciler gorsun..
-//organizationda olan getAll metodunu istifade etcem istifadeci ucun
-//bu serti tetbiq etmeliyem-->Select * from organization where status = TRUE;
-//organizationRepository-deki metoddan istifade etcem..
-
-
-//update metodunun api-sini duzeltcem
-
-//multiDeletede userId esasen roleType yoxlucam UserReadResponsa gore yox
-//id gore useri tapcam..
-

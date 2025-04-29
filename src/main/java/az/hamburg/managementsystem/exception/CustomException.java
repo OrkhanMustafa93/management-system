@@ -26,7 +26,7 @@ public class CustomException {
     @ResponseStatus(NOT_FOUND)
     public ProblemDetail handlerOrganizationNotFound(OrganizationNotFoundException e) {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(NOT_FOUND, e.getMessage());
-        problemDetail.setProperty("organizationIds", e.getMessage());// e.getOrganizationIds());
+        problemDetail.setProperty("organizationIds", e.getMessage());
         return problemDetail;
     }
 
@@ -81,6 +81,26 @@ public class CustomException {
     @ResponseStatus(NOT_FOUND)
     public ProblemDetail handlerOrganizationJoinRequestNotFound(OrganizationJoinRequestNotFoundException e) {
         return ProblemDetail.forStatusAndDetail(NOT_FOUND, e.getMessage());
+    }
+
+    @ExceptionHandler(OrganizationUserNotFoundException.class)
+    @ResponseStatus(NOT_FOUND)
+    public ProblemDetail handlerOrganizationUserNotFound(OrganizationUserNotFoundException e) {
+        return ProblemDetail.forStatusAndDetail(NOT_FOUND, e.getMessage());
+    }
+
+    @ExceptionHandler(OrganizationNotFoundExceptionDetail.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ProblemDetail handleOrganizationNotFoundDetail(OrganizationNotFoundExceptionDetail e) {
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
+        problemDetail.setProperty("Not Found Organization Ids", e.getNotFoundIds());
+        return problemDetail;
+    }
+
+    @ExceptionHandler(OrganizationAlReadyExistsException.class)
+    @ResponseStatus(CONFLICT)
+    public ProblemDetail handleOrganizationAlReadyExists(OrganizationAlReadyExistsException e) {
+        return ProblemDetail.forStatusAndDetail(CONFLICT, e.getMessage());
     }
 
 }
