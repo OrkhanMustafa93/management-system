@@ -25,4 +25,5 @@ public interface OrganizationFacade {
    List<OrganizationReadDetailResponse> getAllOrganizationsStatusTrue();
 
    List<OrganizationReadDetailResponse> getAll();
+
 }

@@ -1,16 +1,21 @@
 package az.hamburg.managementsystem.service.impl;
 
 import az.hamburg.managementsystem.domain.OrganizationJoinRequest;
+import az.hamburg.managementsystem.domain.RequestStatus;
 import az.hamburg.managementsystem.exception.error.ErrorMessage;
 import az.hamburg.managementsystem.exception.handler.OrganizationJoinRequestNotFoundException;
 import az.hamburg.managementsystem.mappers.OrganizationJoinRequestMapper;
+import az.hamburg.managementsystem.model.organization.response.OrganizationReadResponse;
 import az.hamburg.managementsystem.model.organizationjoinrequest.request.OrganizationJoinRequestCreateRequest;
 import az.hamburg.managementsystem.model.organizationjoinrequest.request.OrganizationJoinRequestUpdateRequest;
 import az.hamburg.managementsystem.model.organizationjoinrequest.response.OrganizationJoinRequestCreateResponse;
 import az.hamburg.managementsystem.model.organizationjoinrequest.response.OrganizationJoinRequestReadResponse;
 import az.hamburg.managementsystem.model.organizationjoinrequest.response.OrganizationJoinRequestUpdateResponse;
+import az.hamburg.managementsystem.model.user.response.UserReadResponse;
 import az.hamburg.managementsystem.repository.OrganizationJoinRequestRepository;
 import az.hamburg.managementsystem.service.OrganizationJoinRequestService;
+import az.hamburg.managementsystem.service.OrganizationService;
+import az.hamburg.managementsystem.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -23,11 +28,16 @@ public class OrganizationJoinRequestServiceImpl implements OrganizationJoinReque
 
     private final OrganizationJoinRequestRepository organizationJoinRequestRepository;
     private final OrganizationJoinRequestMapper organizationJoinRequestMapper;
+    private final OrganizationService organizationService;
+    private final UserService userService;
 
     @Override
     public OrganizationJoinRequestCreateResponse create(OrganizationJoinRequestCreateRequest createRequest) {
+        organizationService.getId(createRequest.getOrganizationId());
+        userService.getId(createRequest.getUserId());
 
         OrganizationJoinRequest entity = organizationJoinRequestMapper.createRequestToEntity(createRequest);
+        entity.setStatus(RequestStatus.PENDING);
         organizationJoinRequestRepository.save(entity);
         return organizationJoinRequestMapper.entityToCreateResponse(entity);
 
