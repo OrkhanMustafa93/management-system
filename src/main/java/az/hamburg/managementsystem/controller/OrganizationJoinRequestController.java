@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("v1/organizationJoinRequest")
+@RequestMapping("v1/organization-Join-Request")
 @RequiredArgsConstructor
 @Tag(name = "OrganizationJoinRequest Controller API", description = "Managing OrganizationJoinRequest Apis")
 @CrossOrigin(allowedHeaders = "*", origins = "*")
@@ -30,7 +30,7 @@ public class OrganizationJoinRequestController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public OrganizationJoinRequestReadResponse get(@PathVariable Long id) {
+    public OrganizationJoinRequestReadResponse getId(@PathVariable Long id) {
         return organizationJoinRequestService.getId(id);
     }
 

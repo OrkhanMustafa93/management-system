@@ -1,15 +1,12 @@
 package az.hamburg.managementsystem.facade;
 
-import az.hamburg.managementsystem.SelectIds;
-import az.hamburg.managementsystem.domain.Organization;
+import az.hamburg.managementsystem.common.SelectIds;
 import az.hamburg.managementsystem.model.dto.OrganizationStatusReadResponse;
 import az.hamburg.managementsystem.model.organization.request.OrganizationCreateDetailRequest;
 import az.hamburg.managementsystem.model.organization.request.OrganizationUpdateDetailRequest;
 import az.hamburg.managementsystem.model.organization.response.OrganizationCreateDetailResponse;
 import az.hamburg.managementsystem.model.organization.response.OrganizationReadDetailResponse;
 import az.hamburg.managementsystem.model.organization.response.OrganizationUpdateDetailResponse;
-import az.hamburg.managementsystem.model.user.response.UserReadResponse;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 

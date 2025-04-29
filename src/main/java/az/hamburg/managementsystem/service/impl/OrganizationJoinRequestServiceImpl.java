@@ -29,8 +29,8 @@ public class OrganizationJoinRequestServiceImpl implements OrganizationJoinReque
 
         OrganizationJoinRequest entity = organizationJoinRequestMapper.createRequestToEntity(createRequest);
         organizationJoinRequestRepository.save(entity);
-
         return organizationJoinRequestMapper.entityToCreateResponse(entity);
+
     }
 
     @Override

@@ -1,7 +1,6 @@
 package az.hamburg.managementsystem.controller;
 
-import az.hamburg.managementsystem.SelectIds;
-import az.hamburg.managementsystem.domain.Organization;
+import az.hamburg.managementsystem.common.SelectIds;
 import az.hamburg.managementsystem.facade.OrganizationFacade;
 import az.hamburg.managementsystem.model.dto.OrganizationStatusReadResponse;
 import az.hamburg.managementsystem.model.organization.request.OrganizationCreateDetailRequest;
@@ -72,7 +71,7 @@ public class OrganizationController {
 
     @DeleteMapping("userId/{userId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteOrganizations(@PathVariable Long userId,SelectIds request) {
+    public void deleteOrganizations(@PathVariable Long userId, SelectIds request) {
         organizationFacade.deleteOrganizations(userId,request);
     }
 
