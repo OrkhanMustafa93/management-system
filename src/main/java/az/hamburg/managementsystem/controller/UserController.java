@@ -1,4 +1,5 @@
 package az.hamburg.managementsystem.controller;
+import az.hamburg.managementsystem.SelectIds;
 import az.hamburg.managementsystem.domain.RoleType;
 import az.hamburg.managementsystem.model.user.request.UserCreateRequest;
 import az.hamburg.managementsystem.model.user.request.UserUpdateRequest;
@@ -33,11 +34,17 @@ public class UserController {
         return userService.getId(id);
     }
 
-    @GetMapping()
-    @ResponseStatus(HttpStatus.OK)
-    public List<UserReadResponse> getAll() {
-        return userService.getAll();
+//    @GetMapping()
+//    @ResponseStatus(HttpStatus.OK)
+//    public List<UserReadResponse> getAll() {
+//        return userService.getAll();
+//    }
+
+    @PostMapping("/users-by-ids")
+    public List<UserReadResponse> getUsersByIds(@RequestBody SelectIds selectIds) {
+        return userService.getByIds(selectIds);
     }
+
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
