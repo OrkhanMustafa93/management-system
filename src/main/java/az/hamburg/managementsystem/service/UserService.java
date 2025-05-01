@@ -1,6 +1,6 @@
 package az.hamburg.managementsystem.service;
 
-import az.hamburg.managementsystem.SelectIds;
+import az.hamburg.managementsystem.common.SelectIds;
 import az.hamburg.managementsystem.domain.RoleType;
 import az.hamburg.managementsystem.model.user.request.UserCreateRequest;
 import az.hamburg.managementsystem.model.user.request.UserUpdateRequest;

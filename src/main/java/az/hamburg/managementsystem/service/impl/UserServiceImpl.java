@@ -1,5 +1,5 @@
 package az.hamburg.managementsystem.service.impl;
-import az.hamburg.managementsystem.SelectIds;
+import az.hamburg.managementsystem.common.SelectIds;
 import az.hamburg.managementsystem.domain.RoleType;
 import az.hamburg.managementsystem.domain.User;
 import az.hamburg.managementsystem.exception.error.ErrorMessage;
