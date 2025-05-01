@@ -21,6 +21,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -40,7 +41,6 @@ public class OrganizationJoinRequestServiceImpl implements OrganizationJoinReque
         entity.setStatus(RequestStatus.PENDING);
         organizationJoinRequestRepository.save(entity);
         return organizationJoinRequestMapper.entityToCreateResponse(entity);
-
     }
 
     @Override
@@ -75,4 +75,24 @@ public class OrganizationJoinRequestServiceImpl implements OrganizationJoinReque
                 .orElseThrow(() -> new OrganizationJoinRequestNotFoundException(ErrorMessage.ORGANIZATION_JOIN_REQUEST_NOT_FOUND, HttpStatus.NOT_FOUND.name()));
         organizationJoinRequestRepository.deleteById(entity.getId());
     }
+
+    @Override
+    public List<OrganizationJoinRequestReadResponse> getAllStatusPending() {
+        return organizationJoinRequestRepository.getAllOrganizationJoinRequestsByStatus(RequestStatus.PENDING)
+                .stream()
+                .map(organizationJoinRequestMapper::entityToReadResponse)
+                .toList();
+
+    }
+
+    @Override
+    public List<OrganizationJoinRequestReadResponse> getAllByOrganizationId(Long organizationId) {
+        return  organizationJoinRequestRepository.getAllOrganizationJoinRequestByOrganizationId(organizationId)
+                .stream()
+                .map(organizationJoinRequestMapper::entityToReadResponse)
+                .toList();
+    }
+
+    //butun statusu pending olan  data getirecem(get)
+    //quruma gore butun muraciyetleri gore bilmek...
 }
