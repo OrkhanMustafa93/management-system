@@ -83,6 +83,7 @@ public class CustomException {
         return ProblemDetail.forStatusAndDetail(NOT_FOUND, e.getMessage());
     }
 
+<<<<<<< Updated upstream
     @ExceptionHandler(OrganizationUserNotFoundException.class)
     @ResponseStatus(NOT_FOUND)
     public ProblemDetail handlerOrganizationUserNotFound(OrganizationUserNotFoundException e) {
@@ -102,5 +103,17 @@ public class CustomException {
     public ProblemDetail handleOrganizationAlReadyExists(OrganizationAlReadyExistsException e) {
         return ProblemDetail.forStatusAndDetail(CONFLICT, e.getMessage());
     }
+=======
+    @ExceptionHandler(UsersWithTheseIdsNotFoundException.class)
+    @ResponseStatus(NOT_FOUND)
+    public ProblemDetail handlerUsersWithTheseIdsNotFound(UsersWithTheseIdsNotFoundException e) {
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(NOT_FOUND, e.getMessage());
+        problemDetail.setProperty("missingIds", e.getSelectIds());
+        return problemDetail;
+    }
+
+
+
+>>>>>>> Stashed changes
 
 }
