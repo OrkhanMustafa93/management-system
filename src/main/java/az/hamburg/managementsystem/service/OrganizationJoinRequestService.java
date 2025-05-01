@@ -19,4 +19,8 @@ public interface OrganizationJoinRequestService {
     OrganizationJoinRequestUpdateResponse update(Long id , OrganizationJoinRequestUpdateRequest updateRequest);
 
     void delete (Long id);
+
+    List<OrganizationJoinRequestReadResponse> getAllStatusPending();
+
+    List<OrganizationJoinRequestReadResponse> getAllByOrganizationId(Long organizationId);
 }
