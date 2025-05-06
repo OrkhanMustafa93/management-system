@@ -1,5 +1,6 @@
 package az.hamburg.managementsystem.service.impl;
 import az.hamburg.managementsystem.common.SelectIds;
+import az.hamburg.managementsystem.domain.OrganizationUser;
 import az.hamburg.managementsystem.domain.RoleType;
 import az.hamburg.managementsystem.domain.User;
 import az.hamburg.managementsystem.exception.error.ErrorMessage;
@@ -11,6 +12,7 @@ import az.hamburg.managementsystem.mappers.UserMapper;
 import az.hamburg.managementsystem.model.user.request.UserCreateRequest;
 import az.hamburg.managementsystem.model.user.request.UserUpdateRequest;
 import az.hamburg.managementsystem.model.user.response.*;
+import az.hamburg.managementsystem.repository.OrganizationUserRepository;
 import az.hamburg.managementsystem.repository.UserRepository;
 import az.hamburg.managementsystem.service.UserService;
 import ch.qos.logback.core.status.Status;
@@ -30,6 +32,7 @@ public class UserServiceImpl implements UserService {
 
         private final UserRepository userRepository;
         private final UserMapper userMapper;
+        private final OrganizationUserRepository organizationUserRepository;
 
     @Override
     public UserCreateResponse create(UserCreateRequest createRequest) {
@@ -148,6 +151,20 @@ public class UserServiceImpl implements UserService {
         userRepository.save(foundedUser);
 
         return userMapper.entityToUserStatusUpdateResponse(foundedUser);
+    }
+
+    @Override
+    public List<UserReadResponse> getAllUserByOrganizationId(Long organizationId) {
+        List<OrganizationUser> organizationUsers = organizationUserRepository.getAllByOrganizationId(organizationId);
+        List<UserReadResponse> result = new ArrayList<>();
+
+        for (OrganizationUser organizationUser : organizationUsers) {
+            Long userId = organizationUser.getUserId();
+            UserReadResponse user = getId(userId);
+            result.add(user);
+        }
+        return result;
+
     }
 
 }

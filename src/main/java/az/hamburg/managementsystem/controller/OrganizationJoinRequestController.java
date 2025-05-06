@@ -1,5 +1,6 @@
 package az.hamburg.managementsystem.controller;
 
+import az.hamburg.managementsystem.model.dto.OrganizationJoinRequestUpdateStatus;
 import az.hamburg.managementsystem.model.organizationjoinrequest.request.OrganizationJoinRequestCreateRequest;
 import az.hamburg.managementsystem.model.organizationjoinrequest.request.OrganizationJoinRequestUpdateRequest;
 import az.hamburg.managementsystem.model.organizationjoinrequest.response.OrganizationJoinRequestCreateResponse;
@@ -40,10 +41,10 @@ public class OrganizationJoinRequestController {
         return organizationJoinRequestService.getAll();
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/status-update")
     @ResponseStatus(HttpStatus.OK)
-    public OrganizationJoinRequestUpdateResponse update(@PathVariable Long id, @RequestBody OrganizationJoinRequestUpdateRequest request) {
-        return organizationJoinRequestService.update(id, request);
+    public OrganizationJoinRequestUpdateResponse update(@RequestBody OrganizationJoinRequestUpdateRequest request) {
+        return organizationJoinRequestService.update(request);
     }
 
     @DeleteMapping("/{id}")
@@ -62,6 +63,12 @@ public class OrganizationJoinRequestController {
     @ResponseStatus(HttpStatus.OK)
     public List<OrganizationJoinRequestReadResponse> getAllByOrganizationId(@PathVariable Long id) {
         return organizationJoinRequestService.getAllByOrganizationId(id);
+    }
+
+    @GetMapping("/status-pending/{organizationId}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<OrganizationJoinRequestReadResponse> getAllByOrganizationIdAndStatus(@PathVariable Long organizationId) {
+        return organizationJoinRequestService.getAllByOrganizationIdAndStatus(organizationId);
     }
 }
 

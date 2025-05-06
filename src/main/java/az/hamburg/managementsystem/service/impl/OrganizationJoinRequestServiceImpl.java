@@ -1,10 +1,15 @@
 package az.hamburg.managementsystem.service.impl;
 
 import az.hamburg.managementsystem.domain.OrganizationJoinRequest;
+import az.hamburg.managementsystem.domain.OrganizationUser;
 import az.hamburg.managementsystem.domain.RequestStatus;
+import az.hamburg.managementsystem.domain.RoleType;
 import az.hamburg.managementsystem.exception.error.ErrorMessage;
 import az.hamburg.managementsystem.exception.handler.OrganizationJoinRequestNotFoundException;
+import az.hamburg.managementsystem.exception.handler.OrganizationNotFoundException;
+import az.hamburg.managementsystem.exception.handler.UserUnAuthorizedException;
 import az.hamburg.managementsystem.mappers.OrganizationJoinRequestMapper;
+import az.hamburg.managementsystem.model.dto.OrganizationJoinRequestUpdateStatus;
 import az.hamburg.managementsystem.model.organization.response.OrganizationReadResponse;
 import az.hamburg.managementsystem.model.organizationjoinrequest.request.OrganizationJoinRequestCreateRequest;
 import az.hamburg.managementsystem.model.organizationjoinrequest.request.OrganizationJoinRequestUpdateRequest;
@@ -13,14 +18,18 @@ import az.hamburg.managementsystem.model.organizationjoinrequest.response.Organi
 import az.hamburg.managementsystem.model.organizationjoinrequest.response.OrganizationJoinRequestUpdateResponse;
 import az.hamburg.managementsystem.model.user.response.UserReadResponse;
 import az.hamburg.managementsystem.repository.OrganizationJoinRequestRepository;
+import az.hamburg.managementsystem.repository.OrganizationUserRepository;
 import az.hamburg.managementsystem.service.OrganizationJoinRequestService;
 import az.hamburg.managementsystem.service.OrganizationService;
+import az.hamburg.managementsystem.service.OrganizationUserService;
 import az.hamburg.managementsystem.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,6 +40,8 @@ public class OrganizationJoinRequestServiceImpl implements OrganizationJoinReque
     private final OrganizationJoinRequestMapper organizationJoinRequestMapper;
     private final OrganizationService organizationService;
     private final UserService userService;
+    private final OrganizationUserRepository organizationUserRepository;
+    private final OrganizationUserService organizationUserService;
 
     @Override
     public OrganizationJoinRequestCreateResponse create(OrganizationJoinRequestCreateRequest createRequest) {
@@ -59,13 +70,29 @@ public class OrganizationJoinRequestServiceImpl implements OrganizationJoinReque
     }
 
     @Override
-    public OrganizationJoinRequestUpdateResponse update(Long id, OrganizationJoinRequestUpdateRequest updateRequest) {
-        OrganizationJoinRequest entity = organizationJoinRequestRepository
-                .findById(id).orElseThrow(() -> new OrganizationJoinRequestNotFoundException(ErrorMessage.ORGANIZATION_JOIN_REQUEST_NOT_FOUND, HttpStatus.NOT_FOUND.name()));
-        OrganizationJoinRequest saved = organizationJoinRequestMapper.updateRequestToEntity(entity,updateRequest);
-        organizationJoinRequestRepository.save(saved);
+    public OrganizationJoinRequestUpdateResponse update(OrganizationJoinRequestUpdateRequest updateRequest) {
 
-        return organizationJoinRequestMapper.entityToUpdateResponse(saved);
+        UserReadResponse user = userService.getId(updateRequest.getId());
+        if (!user.getRoleType().equals(RoleType.ADMIN)) {
+            throw new UserUnAuthorizedException(ErrorMessage.USERUNAUTHORIZED, HttpStatus.UNAUTHORIZED.name());
+        }
+
+
+        OrganizationJoinRequest entity = organizationJoinRequestRepository.findByUserIdAndOrganizationId(updateRequest.getUserId(), updateRequest.getOrganizationId())
+                        .orElseThrow(()-> new OrganizationJoinRequestNotFoundException(ErrorMessage.ORGANIZATION_JOIN_REQUEST_NOT_FOUND, HttpStatus.NOT_FOUND.name()));
+
+        OrganizationUser organizationUser = new OrganizationUser();
+        organizationUser.setUserId(updateRequest.getUserId());
+        organizationUser.setOrganizationId(updateRequest.getOrganizationId());
+
+        entity.setStatus(updateRequest.getStatus());
+
+        if (updateRequest.getStatus().equals(RequestStatus.APPROVED)){
+            organizationJoinRequestRepository.save(entity);
+            organizationUserRepository.save(organizationUser);
+        }
+             return organizationJoinRequestMapper.entityToUpdateResponse(entity);
+
     }
 
     @Override
@@ -93,6 +120,17 @@ public class OrganizationJoinRequestServiceImpl implements OrganizationJoinReque
                 .toList();
     }
 
-    //butun statusu pending olan  data getirecem(get)
-    //quruma gore butun muraciyetleri gore bilmek...
+    @Override
+    public List<OrganizationJoinRequestReadResponse> getAllByOrganizationIdAndStatus(Long organizationId) {
+
+        return  organizationJoinRequestRepository.findOrganizationRequestByOrganizationId(organizationId).stream()
+                .map(organizationJoinRequestMapper::entityToReadResponse)
+                .toList();
+    }
+
+    //Admin butun statusu pending olan sorgulari gormelidi
+    //her qurumun tek pending olan sorgulari gelmelidir
+    //Admin hansisa qurumun pending statusu olan sexsleri statualarini update elicek
+    //bu zaman organizationUser classina teze data dusecek..
+    //qurumun istifadecilerini getiren API (organizationUser-den)
 }

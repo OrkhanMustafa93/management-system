@@ -12,6 +12,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class OrganizationJoinRequestUpdateRequest {
 
+    private Long id;
     private Long userId;
     private Long organizationId;
+    private RequestStatus status;
 }
