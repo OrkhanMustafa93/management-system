@@ -10,6 +10,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.ReportingPolicy;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring",unmappedTargetPolicy = ReportingPolicy.IGNORE,
         unmappedSourcePolicy = ReportingPolicy.IGNORE)
 public interface OrganizationJoinRequestMapper {
@@ -23,4 +25,6 @@ public interface OrganizationJoinRequestMapper {
     OrganizationJoinRequest updateRequestToEntity(@MappingTarget OrganizationJoinRequest organizationJoinRequest, OrganizationJoinRequestUpdateRequest updateRequest);
 
     OrganizationJoinRequestUpdateResponse entityToUpdateResponse(OrganizationJoinRequest organizationJoinRequest);
+
+
 }

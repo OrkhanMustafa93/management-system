@@ -34,6 +34,7 @@ public class OrganizationUserServiceImpl implements OrganizationUserService {
 
     @Override
     public OrganizationUserReadResponse getId(Long id) {
+
         OrganizationUser foundedOrganizationUser = organizationUserRepository.findById(id)
                 .orElseThrow(() -> new OrganizationUserNotFoundException(ErrorMessage.ORGANIZATION_USER_NOT_FOUND, HttpStatus.NOT_FOUND.name()));
 

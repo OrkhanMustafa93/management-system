@@ -4,6 +4,10 @@ import az.hamburg.managementsystem.domain.OrganizationUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface OrganizationUserRepository extends JpaRepository<OrganizationUser, Long> {
+
+    List<OrganizationUser> getAllByOrganizationId(Long organizationId);
 }

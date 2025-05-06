@@ -77,12 +77,10 @@ public class UserController {
         return userService.statusUpdate(id, changerId, status);
     }
 
-
-
-//    @PutMapping("/{id}/status-update/{userId}")
-//    @ResponseStatus(HttpStatus.OK)
-//    public UserUpdateResponse statusUpdate(@PathVariable Long id, @PathVariable Long userId) {
-//        return userService.statusUpdate(id, userId);
-//    }
+    @GetMapping("/organization/{organizationId}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<UserReadResponse> getAllUserByOrganizationId(@PathVariable (name = "organizationId") Long organizationId) {
+        return userService.getAllUserByOrganizationId(organizationId);
+    }
 
 }
