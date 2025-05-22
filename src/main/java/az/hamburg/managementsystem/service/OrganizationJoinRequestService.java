@@ -1,5 +1,7 @@
 package az.hamburg.managementsystem.service;
 
+import az.hamburg.managementsystem.domain.OrganizationJoinRequest;
+import az.hamburg.managementsystem.model.dto.OrganizationJoinRequestUpdateStatus;
 import az.hamburg.managementsystem.model.organizationjoinrequest.request.OrganizationJoinRequestCreateRequest;
 import az.hamburg.managementsystem.model.organizationjoinrequest.request.OrganizationJoinRequestUpdateRequest;
 import az.hamburg.managementsystem.model.organizationjoinrequest.response.OrganizationJoinRequestCreateResponse;
@@ -16,7 +18,16 @@ public interface OrganizationJoinRequestService {
 
     List<OrganizationJoinRequestReadResponse> getAll();
 
-    OrganizationJoinRequestUpdateResponse update(Long id , OrganizationJoinRequestUpdateRequest updateRequest);
+    OrganizationJoinRequestUpdateResponse update(OrganizationJoinRequestUpdateRequest updateRequest);
 
     void delete (Long id);
+
+    List<OrganizationJoinRequestReadResponse> getAllStatusPending();
+
+    List<OrganizationJoinRequestReadResponse> getAllByOrganizationId(Long organizationId);
+
+    List<OrganizationJoinRequestReadResponse> getAllByOrganizationIdAndStatus(Long organizationId);
+
+
+
 }

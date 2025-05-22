@@ -1,8 +1,10 @@
 package az.hamburg.managementsystem.mappers;
 
 import az.hamburg.managementsystem.domain.Organization;
+import az.hamburg.managementsystem.model.dto.OrganizationStatusReadResponse;
 import az.hamburg.managementsystem.model.organization.request.OrganizationCreateDetailRequest;
 import az.hamburg.managementsystem.model.organization.request.OrganizationCreateRequest;
+import az.hamburg.managementsystem.model.organization.request.OrganizationUpdateDetailRequest;
 import az.hamburg.managementsystem.model.organization.request.OrganizationUpdateRequest;
 import az.hamburg.managementsystem.model.organization.response.*;
 import org.mapstruct.Mapper;
@@ -17,8 +19,6 @@ OrganizationMapper {
 
     OrganizationCreateResponse entityToCreateResponse (Organization organization);
 
-    OrganizationCreateRequest detailToCreateModel(OrganizationCreateDetailRequest createDetail);
-
     OrganizationReadResponse entityToReadResponse(Organization organization);
 
     Organization updateRequestToEntity(OrganizationUpdateRequest updateRequest);
@@ -32,4 +32,11 @@ OrganizationMapper {
     Organization organizationCreateDetailRequestToEntity(OrganizationCreateDetailRequest detailRequest);
 
 
+   Organization updateDetailRequestToEntity(OrganizationUpdateDetailRequest detailRequest);
+
+    OrganizationUpdateDetailResponse entityToUpdateDetailResponse(Organization organization);
+
+    OrganizationStatusReadResponse entityToOrganizationStatusReadResponse(Organization organization);
+
+   OrganizationReadDetailResponse readResponseToReadDetail(OrganizationReadResponse readResponse);
 }

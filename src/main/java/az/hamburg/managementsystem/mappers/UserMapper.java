@@ -3,9 +3,7 @@ package az.hamburg.managementsystem.mappers;
 import az.hamburg.managementsystem.domain.User;
 import az.hamburg.managementsystem.model.user.request.UserCreateRequest;
 import az.hamburg.managementsystem.model.user.request.UserUpdateRequest;
-import az.hamburg.managementsystem.model.user.response.UserCreateResponse;
-import az.hamburg.managementsystem.model.user.response.UserReadResponse;
-import az.hamburg.managementsystem.model.user.response.UserUpdateResponse;
+import az.hamburg.managementsystem.model.user.response.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
@@ -23,5 +21,9 @@ public interface UserMapper {
     User updateRequestToEntity(UserUpdateRequest updateRequest);
 
     UserUpdateResponse entityToUpdateResponse(User user);
+
+    UserStatusUpdateResponse entityToUserStatusUpdateResponse(User user);
+
+    UserRoleUpdateResponse entityToUserRoleUpdateResponse(User user);
 
 }

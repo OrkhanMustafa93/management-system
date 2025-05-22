@@ -1,5 +1,6 @@
 package az.hamburg.managementsystem.controller;
 
+import az.hamburg.managementsystem.model.dto.OrganizationJoinRequestUpdateStatus;
 import az.hamburg.managementsystem.model.organizationjoinrequest.request.OrganizationJoinRequestCreateRequest;
 import az.hamburg.managementsystem.model.organizationjoinrequest.request.OrganizationJoinRequestUpdateRequest;
 import az.hamburg.managementsystem.model.organizationjoinrequest.response.OrganizationJoinRequestCreateResponse;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("v1/organizationJoinRequest")
+@RequestMapping("v1/organization-join-request")
 @RequiredArgsConstructor
 @Tag(name = "OrganizationJoinRequest Controller API", description = "Managing OrganizationJoinRequest Apis")
 @CrossOrigin(allowedHeaders = "*", origins = "*")
@@ -30,7 +31,7 @@ public class OrganizationJoinRequestController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public OrganizationJoinRequestReadResponse get(@PathVariable Long id) {
+    public OrganizationJoinRequestReadResponse getId(@PathVariable Long id) {
         return organizationJoinRequestService.getId(id);
     }
 
@@ -40,10 +41,10 @@ public class OrganizationJoinRequestController {
         return organizationJoinRequestService.getAll();
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/status-update")
     @ResponseStatus(HttpStatus.OK)
-    public OrganizationJoinRequestUpdateResponse update(@PathVariable Long id, @RequestBody OrganizationJoinRequestUpdateRequest request) {
-        return organizationJoinRequestService.update(id, request);
+    public OrganizationJoinRequestUpdateResponse update(@RequestBody OrganizationJoinRequestUpdateRequest request) {
+        return organizationJoinRequestService.update(request);
     }
 
     @DeleteMapping("/{id}")
@@ -51,4 +52,23 @@ public class OrganizationJoinRequestController {
     public void delete(@PathVariable Long id) {
         organizationJoinRequestService.delete(id);
     }
+
+    @GetMapping("/status")
+    @ResponseStatus(HttpStatus.OK)
+    public List<OrganizationJoinRequestReadResponse> getPendingStatus() {
+        return organizationJoinRequestService.getAllStatusPending();
+    }
+
+    @GetMapping("/organization/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<OrganizationJoinRequestReadResponse> getAllByOrganizationId(@PathVariable Long id) {
+        return organizationJoinRequestService.getAllByOrganizationId(id);
+    }
+
+    @GetMapping("/status-pending/{organizationId}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<OrganizationJoinRequestReadResponse> getAllByOrganizationIdAndStatus(@PathVariable Long organizationId) {
+        return organizationJoinRequestService.getAllByOrganizationIdAndStatus(organizationId);
+    }
 }
+
