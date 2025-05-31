@@ -98,7 +98,6 @@ public class UserServiceImpl implements UserService {
         User foundedUser = userRepository
                 .findById(id).orElseThrow(() -> new UserNotFoundException(ErrorMessage.USER_NOT_FOUND, HttpStatus.NOT_FOUND.name()));
         User savedUser = userMapper.updateRequestToEntity(updateRequest);
-//        savedUser.setModified(foundedUser.getModified());
         savedUser.setModifiedBy(updateRequest.getUsername());
         savedUser.setId(foundedUser.getId());
         userRepository.save(savedUser);

@@ -23,6 +23,8 @@ public interface OrganizationJoinRequestRepository extends JpaRepository<Organiz
 
     Optional<OrganizationJoinRequest> findByUserIdAndOrganizationId(Long userId, Long organizationId);
 
+    List<OrganizationJoinRequest> findAllByUserId(Long userId);
+
 
 
 

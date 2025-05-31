@@ -38,7 +38,6 @@ public class ContactServiceImpl implements ContactService {
     private final ContactRepository contactRepository;
     private final ContactMapper contactMapper;
     private final AddressService addressService;
-    private final ContactLinkService contactLinkService;
     private final ContactLinkMapper contactLinkMapper;
     private final ContactLinkRepository contactLinkRepository;
 
@@ -55,12 +54,10 @@ public class ContactServiceImpl implements ContactService {
         Contact foundedContact = contactRepository.findById(id)
                 .orElseThrow(() -> new ContactNotFoundException(ErrorMessage.CONTACT_NOT_FOUND, HttpStatus.NOT_FOUND.name()));
 
-
         ContactReadResponse contactReadResponse = contactMapper.entityToReadResponse(foundedContact);
 
         AddressReadResponse foundedAddress = addressService.getId(foundedContact.getAddressId());
         contactReadResponse.setAddress(foundedAddress);
-
 
         List<ContactLink> foundedContactLink = contactLinkRepository.findByContactId(foundedContact.getId());
 

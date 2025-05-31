@@ -1,6 +1,5 @@
 package az.hamburg.managementsystem.controller;
 
-import az.hamburg.managementsystem.model.dto.OrganizationJoinRequestUpdateStatus;
 import az.hamburg.managementsystem.model.organizationjoinrequest.request.OrganizationJoinRequestCreateRequest;
 import az.hamburg.managementsystem.model.organizationjoinrequest.request.OrganizationJoinRequestUpdateRequest;
 import az.hamburg.managementsystem.model.organizationjoinrequest.response.OrganizationJoinRequestCreateResponse;

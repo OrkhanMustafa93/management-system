@@ -181,17 +181,14 @@ public class OrganizationFacadeImpl implements OrganizationFacade {
                 .map(Organization::getId)
                 .toList();
 
-        // Yox olan ID-ləri tap
         List<Long> notFoundIds = requestedIds.stream()
                 .filter(id -> !foundIds.contains(id))
                 .toList();
 
-        // Əgər hər hansı ID tapılmayıbsa, heç nə silinməsin
         if (!notFoundIds.isEmpty()) {
             throw new OrganizationNotFoundExceptionDetail(notFoundIds);
         }
 
-        // Hamısı tapılıbsa, sil
         organizationRepository.deleteAllById(foundIds);
 
     }

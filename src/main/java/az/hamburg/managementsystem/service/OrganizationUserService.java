@@ -17,6 +17,6 @@ public interface OrganizationUserService {
 
     OrganizationUserUpdateResponse update(Long id , OrganizationUserUpdateRequest updateRequest);
 
-    void delete (Long id);
+    void delete (Long userId);
 
 }

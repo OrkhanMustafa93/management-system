@@ -28,11 +28,6 @@ public interface ContactLinkMapper {
 
     ContactLinkReadResponse entityToReadResponse(ContactLink contactLink);
 
-
-   ContactLinkDTO contactLinkUpdateResponseToDto(ContactLinkUpdateResponse response);
-
-     ContactLinkDTO readResponseToDto(ContactLinkReadResponse readResponse);
-
      ContactLinkDTO entityToContactLinkDto(ContactLink contactLink);
 
 

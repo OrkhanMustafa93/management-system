@@ -41,7 +41,6 @@ public class OrganizationJoinRequestServiceImpl implements OrganizationJoinReque
     private final OrganizationService organizationService;
     private final UserService userService;
     private final OrganizationUserRepository organizationUserRepository;
-    private final OrganizationUserService organizationUserService;
 
     @Override
     public OrganizationJoinRequestCreateResponse create(OrganizationJoinRequestCreateRequest createRequest) {
@@ -76,8 +75,6 @@ public class OrganizationJoinRequestServiceImpl implements OrganizationJoinReque
         if (!user.getRoleType().equals(RoleType.ADMIN)) {
             throw new UserUnAuthorizedException(ErrorMessage.USERUNAUTHORIZED, HttpStatus.UNAUTHORIZED.name());
         }
-
-
         OrganizationJoinRequest entity = organizationJoinRequestRepository.findByUserIdAndOrganizationId(updateRequest.getUserId(), updateRequest.getOrganizationId())
                         .orElseThrow(()-> new OrganizationJoinRequestNotFoundException(ErrorMessage.ORGANIZATION_JOIN_REQUEST_NOT_FOUND, HttpStatus.NOT_FOUND.name()));
 
@@ -127,10 +124,4 @@ public class OrganizationJoinRequestServiceImpl implements OrganizationJoinReque
                 .map(organizationJoinRequestMapper::entityToReadResponse)
                 .toList();
     }
-
-    //Admin butun statusu pending olan sorgulari gormelidi
-    //her qurumun tek pending olan sorgulari gelmelidir
-    //Admin hansisa qurumun pending statusu olan sexsleri statualarini update elicek
-    //bu zaman organizationUser classina teze data dusecek..
-    //qurumun istifadecilerini getiren API (organizationUser-den)
 }
