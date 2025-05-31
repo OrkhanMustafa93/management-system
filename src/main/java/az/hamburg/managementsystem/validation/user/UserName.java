@@ -20,12 +20,6 @@ public @interface UserName {
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};
-    //{
-    //  "name": "name_Esger",
-    //  "username": "username_Novruzov",
-    //  "email": "esger@gmail.com",
-    //  "password": "password_12345678",
-    //  "phoneNumber": "1234567890"
-    //}
+
 
 }

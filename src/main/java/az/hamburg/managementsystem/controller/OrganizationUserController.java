@@ -42,11 +42,11 @@ public class OrganizationUserController {
         return organizationUserService.getAll();
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{userId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteById(@PathVariable Long id) {
+    public void deleteById(@PathVariable Long userId) {
 
-        organizationUserService.delete(id);
+        organizationUserService.delete(userId);
     }
 
     @PutMapping("/{id}")

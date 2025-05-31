@@ -26,7 +26,6 @@ public class ContactLinkServiceImpl implements ContactLinkService {
 
     private final ContactLinkMapper contactLinkMapper;
     private final ContactLinkRepository contactLinkRepository;
-    private final ContactRepository contactRepository;
 
     @Override
     public ContactLinkCreateResponse create(ContactLinkCreateRequest createRequest) {

@@ -27,7 +27,7 @@ public class OrganizationController {
     private final OrganizationService organizationService;
     private final OrganizationFacade organizationFacade;
 
-    @PostMapping("/userId/{id}")
+    @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public OrganizationCreateResponse create(@Valid  @RequestBody OrganizationCreateRequest createRequest) {
         return organizationService.create(createRequest);

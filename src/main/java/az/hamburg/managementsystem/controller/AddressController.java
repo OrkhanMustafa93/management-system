@@ -48,21 +48,6 @@ public class AddressController {
         addressService.delete(request);
     }
 
-
-
-
-//    @DeleteMapping("/multi-delete")
-//    @ResponseStatus(HttpStatus.NO_CONTENT)
-//    public void deleteMultipleAddresses(@RequestBody List<Long> addressIds) {
-//        addressService.delete(addressIds);
-//    }
-
-//    @DeleteMapping("/{List<Long> ids}")
-//    @ResponseStatus(HttpStatus.NO_CONTENT)
-//    public void delete(@PathVariable List<Long> ids) {
-//        addressService.delete(ids);
-//    }
-
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public AddressUpdateResponse update(@PathVariable Long id, @Valid @RequestBody AddressUpdateRequest updateRequest) {

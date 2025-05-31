@@ -34,11 +34,6 @@ public class UserController {
         return userService.getId(id);
     }
 
-//    @GetMapping()
-//    @ResponseStatus(HttpStatus.OK)
-//    public List<UserReadResponse> getAll() {
-//        return userService.getAll();
-//    }
 
     @PostMapping("/users-by-ids")
     public List<UserReadResponse> getUsersByIds(@RequestBody SelectIds selectIds) {
@@ -58,12 +53,6 @@ public class UserController {
         return userService.update(id, updateRequest);
     }
 
-    //!!!!!!!!!!!!
-//    @PutMapping("/{id}/status-update/{userId}")
-//    @ResponseStatus(HttpStatus.OK)
-//    public UserUpdateResponse statusUpdate(@PathVariable Long id, @PathVariable Long userId) {
-//        return userService.statusUpdate(id, userId);
-//    }
 
     @PutMapping("/{id}/role-update/{changerId}")
     @ResponseStatus(HttpStatus.OK)

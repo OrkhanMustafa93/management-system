@@ -16,7 +16,4 @@ public class ContactUpdateRequest {
     private String phoneNumber;
     private String callCenter;
 
-//    private List<ContactLinkDTO> links;
-
-
 }
