@@ -64,14 +64,13 @@ public class OrganizationServiceImpl implements OrganizationService {
 
         User userReadResponse = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(ErrorMessage.USER_NOT_FOUND, HttpStatus.NOT_FOUND.name()));
         if (userReadResponse.getRoleType().equals(RoleType.ADMIN)) {
-            Organization organization = organizationMapper.updateRequestToEntity(updateRequest);
             Organization foundedOrganization = organizationRepository
                     .findById(id)
                     .orElseThrow(() -> new OrganizationNotFoundException(ErrorMessage.ORGANIZATION_NOT_FOUND, HttpStatus.NOT_FOUND.name()));
             Organization savedOrganization = organizationMapper.updateRequestToEntity(updateRequest);
             savedOrganization.setId(foundedOrganization.getId());
             organizationRepository.save(savedOrganization);
-            return organizationMapper.entityToUpdateResponse(organization);
+            return organizationMapper.entityToUpdateResponse(savedOrganization);
         }
         throw new UserUnAuthorizedException(ErrorMessage.USERUNAUTHORIZED, HttpStatus.UNAUTHORIZED.name());
 

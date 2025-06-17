@@ -15,6 +15,4 @@ public class OrganizationJoinRequestCreateRequest {
     private Long userId;
     private Long organizationId;
 
-    @Enumerated(EnumType.STRING)
-    private RequestStatus status;
 }

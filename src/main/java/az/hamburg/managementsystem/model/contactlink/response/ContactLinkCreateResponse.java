@@ -20,4 +20,5 @@ public class ContactLinkCreateResponse {
     private Long contactId;
 
 
+
 }

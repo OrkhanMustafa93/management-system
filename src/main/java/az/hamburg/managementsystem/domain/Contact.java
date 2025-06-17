@@ -26,6 +26,8 @@ public class Contact extends BaseDomain {
 
     private Long addressId;
 
+    private Long contactLinkId;
+
 
 
 

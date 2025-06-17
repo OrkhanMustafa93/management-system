@@ -26,7 +26,6 @@ public class ContactLinkServiceImpl implements ContactLinkService {
 
     private final ContactLinkMapper contactLinkMapper;
     private final ContactLinkRepository contactLinkRepository;
-    private final ContactRepository contactRepository;
 
     @Override
     public ContactLinkCreateResponse create(ContactLinkCreateRequest createRequest) {
@@ -62,6 +61,6 @@ public class ContactLinkServiceImpl implements ContactLinkService {
     public void delete(Long id) {
         ContactLink entity = contactLinkRepository.findById(id)
                 .orElseThrow(() -> new ContactLinkNotFoundException(ErrorMessage.CONTACT_LINK_NOT_FOUND, HttpStatus.NOT_FOUND.name()));
-        contactLinkRepository.delete(entity);
+        contactLinkRepository.deleteById(entity.getId());
     }
 }

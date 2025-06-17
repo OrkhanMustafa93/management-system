@@ -23,5 +23,4 @@ public interface AddressMapper {
 
     AddressReadResponse entityToReadResponse(Address address);
 
-
 }
